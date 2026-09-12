@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>DELIVO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Unbounded:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0A0C10;
@@ -42,7 +40,6 @@
   .screen{flex:1;display:flex;flex-direction:column;min-height:800px;position:relative;}
   .scroll{flex:1;overflow-y:auto;padding:18px 18px 100px;}
   .scroll::-webkit-scrollbar{width:0}
-  /* ---- generic bits ---- */
   .eyebrow{color:var(--text-faint);font-size:12.5px;letter-spacing:.02em;margin-bottom:6px;}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;
     border-radius:999px;padding:15px 20px;font-weight:700;font-size:15px;transition:transform .12s ease, opacity .12s ease;}
@@ -72,7 +69,6 @@
   .stack-sm > * + *{margin-top:8px;}
   .stack > * + *{margin-top:14px;}
   a.link{color:var(--accent);text-decoration:none;font-weight:700;}
-  /* top bar */
   .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 6px;}
   .brandmark{display:flex;align-items:center;gap:9px;}
   .brandmark .logo{width:30px;height:30px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Unbounded';font-weight:700;color:#140700;font-size:14px;}
@@ -83,19 +79,16 @@
     display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;font-size:16px;}
   .badge{position:absolute;top:-4px;right:-4px;background:var(--accent);color:#140700;font-size:10px;font-weight:800;
     min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
-  /* bottom nav */
   .bottomnav{position:absolute;left:0;right:0;bottom:0;display:flex;background:rgba(18,21,28,.92);backdrop-filter:blur(10px);
     border-top:1px solid var(--border);padding:10px 6px 14px;}
   .navitem{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:var(--text-faint);font-size:10.5px;font-weight:700;}
   .navitem.active{color:var(--accent);}
   .navitem .ico{font-size:19px;}
-  /* sheet / modal */
   .sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;z-index:40;}
   .sheet{width:100%;background:var(--surface);border-radius:24px 24px 0 0;padding:20px 18px 26px;max-height:82%;overflow-y:auto;
     border:1px solid var(--border);border-bottom:none;animation:sheetup .22s ease;}
   @keyframes sheetup{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
   .sheet-handle{width:36px;height:4px;background:var(--border);border-radius:3px;margin:0 auto 16px;}
-  /* onboarding */
   .center-flow{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 26px;text-align:center;}
   .splash-logo{width:84px;height:84px;border-radius:24px;background:var(--accent);margin:0 auto 22px;display:flex;
     align-items:center;justify-content:center;font-family:'Unbounded';font-weight:800;font-size:34px;color:#140700;
@@ -109,26 +102,21 @@
   .otp-boxes{display:flex;gap:9px;justify-content:center;margin:22px 0 8px;}
   .otp-boxes input{width:44px;height:56px;text-align:center;font-size:22px;font-weight:800;background:var(--surface-2);
     border:1px solid var(--border);border-radius:12px;color:var(--text);}
-  /* map */
   .mapbox{background:radial-gradient(circle at 30% 20%, #101821 0%, #0B0E13 70%);border:1px solid var(--border);
     border-radius:var(--radius-lg);position:relative;overflow:hidden;}
   .mapbox svg{display:block;width:100%;height:100%;}
   .map-pin-label{font-family:'Manrope';font-weight:700;fill:var(--text);font-size:10px;}
-  /* status chips colors set inline via class */
   .st-created,.st-searching{background:var(--amber-dim);color:var(--amber);}
   .st-progress{background:var(--teal-dim);color:var(--teal);}
   .st-done{background:var(--teal-dim);color:var(--teal);}
   .st-cancel{background:var(--danger-dim);color:var(--danger);}
-  /* offer card */
   .offer-card{border:1.5px solid var(--accent);border-radius:var(--radius-lg);padding:16px;background:linear-gradient(180deg, rgba(255,90,43,.10), rgba(255,90,43,.02));}
   .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.1s infinite;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,43,.5)}70%{box-shadow:0 0 0 8px rgba(255,90,43,0)}100%{box-shadow:0 0 0 0 rgba(255,90,43,0)}}
-  /* chat */
   .msg{max-width:78%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.4;margin-bottom:8px;}
   .msg.me{background:var(--accent);color:#140700;margin-left:auto;border-bottom-right-radius:4px;font-weight:600;}
   .msg.them{background:var(--surface-2);border:1px solid var(--border);border-bottom-left-radius:4px;}
   .msg.sys{background:transparent;color:var(--text-faint);text-align:center;margin:8px auto;font-size:12px;max-width:100%;}
-  /* code display */
   .code-display{letter-spacing:10px;font-family:'Unbounded';font-size:30px;font-weight:700;text-align:center;padding:16px;
     background:var(--surface-2);border:1.5px dashed var(--border);border-radius:16px;color:var(--accent);}
   .kv{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0;}
@@ -144,51 +132,46 @@
   @keyframes toastin{from{transform:translateY(-10px);opacity:0}to{transform:translateY(0);opacity:1}}
   .empty{text-align:center;padding:50px 20px;color:var(--text-faint);}
   .empty .em{font-size:34px;margin-bottom:10px;}
+  a.btn{text-decoration:none;box-sizing:border-box;}
 </style>
 </head>
 <body>
-<div id="app"></div>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-functions-compat.js"></script>
+<div id="app"><div class="phone"><div class="screen"><div class="center-flow">
+    <div class="splash-logo" style="width:64px;height:64px;font-size:26px;">D</div>
+    <div class="display" style="font-size:28px;font-weight:700;margin-bottom:10px;">DELIVO</div>
+    <div class="muted" style="margin-bottom:34px;font-size:15px;">Доставка становится проще.</div>
+    <div class="stack">
+      <button class="btn btn-primary" onclick="goVerify('login')">Вход</button>
+      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.role=null;S.screen='roleSelect';render()">Регистрация</button>
+    </div>
+    <div style="margin-top:22px;"><a class="link" style="font-size:12.5px;cursor:pointer;color:var(--text-faint);font-weight:600;" onclick="S.onboard.mode='demo';S.onboard.role=null;S.screen='roleSelect';render()">Демо-режим без регистрации</a></div>
+  </div></div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 <script>
-/* ---------------- Firebase (только публичный конфиг, БЕЗ токенов ботов!) ---------------- */
-firebase.initializeApp({
-  apiKey: "AIzaSyC8YPE9oNafw8B7ucPEb_eOJzunfqFTOiY",
-  authDomain: "delivo-3afab.firebaseapp.com",
-  databaseURL: "https://delivo-3afab-default-rtdb.firebaseio.com",
-  projectId: "delivo-3afab",
-  storageBucket: "delivo-3afab.firebasestorage.app",
-  messagingSenderId: "974288689446",
-  appId: "1:974288689446:web:aceda7f0d6a8627abe49e7",
-});
-const rtdb = firebase.database();
-const auth = firebase.auth();
-const cloudFns = firebase.functions();
+/* =========================================================================
+   DELIVO — прототип полного сценария (front-end + Firebase + 2 Telegram-бота)
 
-/* Замените на username бота-верификатора (без @).
-   Это публичное имя бота — его можно хранить в клиентском коде.
-   ТОКЕН бота так хранить нельзя никогда — см. SETUP.md. */
-/* Публичные (несекретные!) настройки ботов — username-ы, не токены.
-   Хранятся в Firebase RTDB под config/public, чтобы их можно было
-   поменять из скрытой панели настроек (5 тапов по лого), не трогая код. */
-let APP_CONFIG = { verifyBotUsername: 'YourVerifyBot', mainBotUsername: '' };
-rtdb.ref('config/public').on('value', snap=>{
-  const v = snap.val();
-  if(v){ APP_CONFIG = { ...APP_CONFIG, ...v }; }
-});
-</script>
-
-<script>
-/* =========================================================
-   DELIVO — прототип полного сценария (front-end симуляция)
-   Один HTML-файл. Роли переключаются вручную (демо-режим),
-   т.к. реального backend/Telegram/WebSocket здесь нет —
-   вся "серверная" логика (state machine, dispatch, коды)
-   выполняется тут же, в памяти браузера.
-   ========================================================= */
+   ⚠️ ВАЖНО ПРО БЕЗОПАСНОСТЬ (прочитайте перед реальным использованием)
+   1) Токены обоих Telegram-ботов и конфиг Firebase встроены прямо в этот
+      HTML и выполняются в браузере. Любой человек, открывший "Просмотр
+      кода страницы", увидит токены ботов и сможет полностью управлять
+      ими (читать чужие коды, слать сообщения от имени бота).
+   2) Telegram разрешает только ОДНОГО активного слушателя getUpdates на
+      токен одновременно — если страницу откроют два человека сразу,
+      один из поллеров начнёт получать 409 Conflict.
+   3) apiKey Firebase — не секрет (это нормально, что он виден), но
+      РЕАЛЬНАЯ защита данных — это Rules в консоли Firebase. Сейчас,
+      если правила по умолчанию ("только для авторизованных"), запись
+      DB.set(...) будет молча падать с permission-denied, и это демо
+      не сможет ничего сохранить. Чтобы прототип реально писал в
+      firebase, в консоли Firebase → Realtime Database → Rules нужно
+      временно поставить:
+         { "rules": { ".read": true, ".write": true } }
+      Это делает базу полностью открытой — годится только для теста.
+   Перед реальным запуском: перенести работу с ботами на сервер
+   (webhook) и включить нормальную авторизацию + правила Firebase.
+   ========================================================================= */
 
 let SEQ = 1;
 const uid = () => 'id' + (SEQ++);
@@ -197,6 +180,7 @@ const pubId = (prefix) => prefix + '-' + Array.from({length:6},()=> "ABCDEFGHJKM
 const code4 = () => String(rnd(1000,9999));
 const esc = (s='') => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nowStr = () => { const d=new Date(); return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0'); };
+const randToken = () => Array.from({length:10},()=> "abcdefghijklmnopqrstuvwxyz0123456789"[rnd(0,35)]).join('');
 
 const TRANSPORT = {
   WALK:{icon:'🚶', label:'Пешком', speed:5},
@@ -204,7 +188,6 @@ const TRANSPORT = {
   MOTO:{icon:'🛵', label:'Мотоцикл', speed:34},
   CAR:{icon:'🚗', label:'Автомобиль', speed:28},
 };
-
 const STATUS_META = {
   CREATED:{label:'Создан', cls:'st-created', icon:'🆕'},
   SEARCHING_COURIER:{label:'Ищем курьера', cls:'st-searching', icon:'🔎'},
@@ -214,18 +197,18 @@ const STATUS_META = {
   PICKED_UP:{label:'Товар получен курьером', cls:'st-progress', icon:'📦'},
   IN_TRANSIT:{label:'В пути', cls:'st-progress', icon:'🚚'},
   COURIER_NEAR_DESTINATION:{label:'Курьер почти на месте', cls:'st-progress', icon:'📍'},
+  COURIER_ARRIVED_DESTINATION_WAIT:{label:'Курьер ждёт код', cls:'st-progress', icon:'📍'},
   DELIVERED:{label:'Доставлено', cls:'st-done', icon:'✅'},
   CANCELLED:{label:'Отменён', cls:'st-cancel', icon:'✕'},
   EXPIRED:{label:'Курьер не найден', cls:'st-cancel', icon:'⏱'},
 };
 
-/* ---------------- в памяти "база данных" ---------------- */
+/* ---------------- "база данных" в памяти (зеркало Firebase) ---------------- */
 const DB = {
   users:{}, shops:{}, couriers:{}, customers:{}, addresses:{}, orders:{}, messages:{}, ratings:{}, notifications:[]
 };
 
 function seedWorld(){
-  // Продавец / магазин
   const sellerId = uid();
   DB.users[sellerId] = {id:sellerId, publicId:pubId('USR'), phone:'+7 900 111-22-33', name:'Ахмед Валиев', role:'SELLER'};
   const shopId = uid();
@@ -233,7 +216,6 @@ function seedWorld(){
     address:'ул. Гагарина, 14', x:64, y:150, status:'ACTIVE'};
   DB.users[sellerId].shopId = shopId;
 
-  // Покупатель
   const custId = uid();
   DB.users[custId] = {id:custId, publicId:pubId('USR'), phone:'+7 900 222-33-44', name:'Амина Расулова', role:'CUSTOMER'};
   DB.customers[custId] = {id:custId};
@@ -242,7 +224,6 @@ function seedWorld(){
     {id:uid(), label:'Работа', address:'ул. Бехзода, 3, офис 401', x:230, y:172, comment:''},
   ];
 
-  // Курьеры
   const couriersSeed = [
     {name:'Фаррух Назаров', transport:'MOTO', x:118, y:126, rating:4.9, acc:.95, comp:.98, status:'APPROVED'},
     {name:'Шерали Комилов', transport:'BIKE', x:186, y:36,  rating:4.6, acc:.88, comp:.90, status:'APPROVED'},
@@ -257,40 +238,231 @@ function seedWorld(){
       available:true, activeDeliveries:0, maxActive, city:'Центральный район', zone:'Зона 1'};
   });
 
-  DB.shopId = shopId;
-  DB.customerId = custId;
+  DB.demoShopId = shopId;
+  DB.demoCustomerId = custId;
 }
-seedWorld();
+
+/* ---------------- Telegram: два бота ---------------- */
+const TG = {
+  authBotToken: '8878132450:AAH_RNLoErp75eSbyIPQRLXpJ57Vq1pkNSI',  // бот верификации (вход/регистрация по коду)
+  pushBotToken: '8970653874:AAHaTx6GFBrjU8uk_zK-yZSXJ6eopoNU47g',  // бот push-уведомлений (новые заказы и т.д.)
+  authBotUsername: null,
+  pushBotUsername: null,
+  offsetAuth: 0,
+  offsetPush: 0,
+  pendingAuth:{},   // token -> {status:'waiting'|'sent', code, chatId}
+  pendingLink:{},   // token -> {userId, status:'waiting'|'linked'}
+};
+async function tgCall(token, method, params){
+  try{
+    const url = `https://api.telegram.org/bot${token}/${method}`;
+    const res = await fetch(url, params ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(params)} : undefined);
+    return await res.json();
+  }catch(e){ return {ok:false, description:String(e)}; }
+}
+async function tgInit(){
+  const a = await tgCall(TG.authBotToken, 'getMe');
+  if(a.ok) TG.authBotUsername = a.result.username;
+  const p = await tgCall(TG.pushBotToken, 'getMe');
+  if(p.ok) TG.pushBotUsername = p.result.username;
+  const ua = await tgCall(TG.authBotToken, 'getUpdates', {offset:-1});
+  if(ua.ok && ua.result.length) TG.offsetAuth = ua.result[ua.result.length-1].update_id+1;
+  const up = await tgCall(TG.pushBotToken, 'getUpdates', {offset:-1});
+  if(up.ok && up.result.length) TG.offsetPush = up.result[up.result.length-1].update_id+1;
+  render();
+  pollAuthBot();
+  pollPushBot();
+}
+async function pollAuthBot(){
+  const res = await tgCall(TG.authBotToken, 'getUpdates', {offset:TG.offsetAuth, timeout:0, allowed_updates:['message']});
+  if(res.ok && res.result && res.result.length){
+    for(const upd of res.result){
+      TG.offsetAuth = upd.update_id+1;
+      const msg = upd.message;
+      if(msg && msg.text && msg.text.indexOf('/start')===0){
+        const payload = msg.text.split(' ')[1] || '';
+        const m = /^verify_(.+)$/.exec(payload);
+        if(m && TG.pendingAuth[m[1]] && TG.pendingAuth[m[1]].status==='waiting'){
+          const code = code4();
+          TG.pendingAuth[m[1]] = {status:'sent', code, chatId:msg.chat.id};
+          await tgCall(TG.authBotToken, 'sendMessage', {chat_id:msg.chat.id,
+            text:`🔐 DELIVO\nВаш код подтверждения:\n\n${code}\n\nВведите его на сайте, чтобы продолжить.`});
+          render();
+        }
+      }
+    }
+  }
+  setTimeout(pollAuthBot, res.ok? 1500 : 4000);
+}
+async function pollPushBot(){
+  const res = await tgCall(TG.pushBotToken, 'getUpdates', {offset:TG.offsetPush, timeout:0, allowed_updates:['message','callback_query']});
+  if(res.ok && res.result && res.result.length){
+    for(const upd of res.result){
+      TG.offsetPush = upd.update_id+1;
+      if(upd.message && upd.message.text && upd.message.text.indexOf('/start')===0){
+        const payload = upd.message.text.split(' ')[1] || '';
+        const m = /^push_(.+)$/.exec(payload);
+        if(m && TG.pendingLink[m[1]]){
+          const link = TG.pendingLink[m[1]];
+          link.status='linked';
+          const u = DB.users[link.userId];
+          if(u){
+            u.pushChatId = upd.message.chat.id;
+            await tgCall(TG.pushBotToken, 'sendMessage', {chat_id:upd.message.chat.id,
+              text:`🔔 Push-уведомления DELIVO подключены.\nСюда будут приходить заказы и статусы доставок.`});
+            persist();
+          }
+          render();
+        }
+      }
+      if(upd.callback_query){
+        const cq = upd.callback_query;
+        const [action, orderId] = (cq.data||'').split(':');
+        const order = DB.orders[orderId];
+        const cUser = Object.values(DB.users).find(u=>u.role==='COURIER' && u.pushChatId===cq.message.chat.id);
+        const courier = cUser ? DB.couriers[cUser.id] : null;
+        if(order && courier){
+          if(action==='accept'){
+            if(order.status==='SEARCHING_COURIER'){
+              acceptOffer(order.id, courier.id);
+              await tgCall(TG.pushBotToken,'answerCallbackQuery',{callback_query_id:cq.id, text:'Заказ ваш! Открывайте приложение.'});
+              await tgCall(TG.pushBotToken,'sendMessage',{chat_id:cq.message.chat.id, text:`✅ Заказ ${order.publicId} закреплён за вами.`});
+            } else {
+              await tgCall(TG.pushBotToken,'answerCallbackQuery',{callback_query_id:cq.id, text:'Заказ уже принят другим курьером', show_alert:true});
+            }
+          } else if(action==='skip'){
+            skipOffer(order.id, courier.id);
+            await tgCall(TG.pushBotToken,'answerCallbackQuery',{callback_query_id:cq.id, text:'Пропущено'});
+          }
+        }
+      }
+    }
+  }
+  setTimeout(pollPushBot, res.ok? 1500 : 4000);
+}
+function sendTelegramOffer(courier, order, info){
+  const u = DB.users[courier.id];
+  if(!u || !u.pushChatId) return;
+  const shop = orderShop(order);
+  tgCall(TG.pushBotToken, 'sendMessage', {
+    chat_id: u.pushChatId,
+    text: `🚨 НОВЫЙ ЗАКАЗ\n📦 Заказ ${order.publicId}\n🏪 Забрать: ${shop?shop.name:'—'}\n📍 Расстояние: ${info.dPickup} км\n🏠 Доставить: ${info.dDrop} км\n💰 Доход: ${order.deliveryFee} ₽\n⏱ ~${info.eta} минут`,
+    reply_markup: {inline_keyboard:[[
+      {text:'🛵 ПОЛУЧИТЬ ЗАКАЗ', callback_data:`accept:${order.id}`},
+      {text:'❌ ПРОПУСТИТЬ', callback_data:`skip:${order.id}`}
+    ]]}
+  });
+}
+function connectPush(userId){
+  const token = randToken();
+  TG.pendingLink[token] = {userId, status:'waiting'};
+  S.pushConnectToken = token;
+}
+
+/* ---------------- Firebase Realtime Database ---------------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyC8YPE9oNafw8B7ucPEb_eOJzunfqFTOiY",
+  authDomain: "delivo-3afab.firebaseapp.com",
+  databaseURL: "https://delivo-3afab-default-rtdb.firebaseio.com",
+  projectId: "delivo-3afab",
+  storageBucket: "delivo-3afab.firebasestorage.app",
+  messagingSenderId: "974288689446",
+  appId: "1:974288689446:web:aceda7f0d6a8627abe49e7",
+  measurementId: "G-0JW43J3GLS"
+};
+let fbRoot = null, firebaseOK = false, firebaseWarned = false;
+function initFirebase(){
+  try{
+    firebase.initializeApp(firebaseConfig);
+    fbRoot = firebase.database().ref('delivo');
+    firebaseOK = true;
+  }catch(e){ console.error('Firebase init error', e); firebaseOK=false; }
+}
+function persist(){
+  if(!firebaseOK || !fbRoot) return;
+  fbRoot.set(DB).catch(e=>{
+    console.error('Firebase write error', e);
+    if(!firebaseWarned){ firebaseWarned=true; toast('Firebase: запись запрещена — проверьте Rules базы'); }
+  });
+}
+function resyncSeqCounter(){
+  let maxN=0;
+  const scanKeys=(obj)=>{ if(!obj) return; Object.keys(obj).forEach(k=>{ const m=/^id(\d+)$/.exec(k); if(m) maxN=Math.max(maxN,+m[1]); }); };
+  scanKeys(DB.users); scanKeys(DB.shops); scanKeys(DB.couriers); scanKeys(DB.orders);
+  const scanArr=(coll)=>{ Object.values(coll||{}).forEach(arr=>(arr||[]).forEach(it=>{ if(it && it.id){ const m=/^id(\d+)$/.exec(it.id); if(m) maxN=Math.max(maxN,+m[1]); } })); };
+  scanArr(DB.addresses); scanArr(DB.messages);
+  SEQ = maxN+1;
+}
+function normalizeAfterLoad(){
+  DB.users=DB.users||{}; DB.shops=DB.shops||{}; DB.couriers=DB.couriers||{}; DB.customers=DB.customers||{};
+  DB.addresses=DB.addresses||{}; DB.orders=DB.orders||{}; DB.messages=DB.messages||{}; DB.ratings=DB.ratings||{};
+  DB.notifications=DB.notifications||[];
+  resyncSeqCounter();
+}
+async function bootData(){
+  if(!firebaseOK){ seedWorld(); resyncSeqCounter(); render(); return; }
+  try{
+    const snap = await fbRoot.once('value');
+    const val = snap.val();
+    if(val && val.users && Object.keys(val.users).length){
+      Object.assign(DB, val);
+      normalizeAfterLoad();
+    } else {
+      seedWorld();
+      resyncSeqCounter();
+      persist();
+    }
+  }catch(e){
+    console.error('Firebase read error', e);
+    seedWorld(); resyncSeqCounter();
+  }
+  render();
+  if(fbRoot){
+    fbRoot.on('value', snap=>{
+      const v = snap.val();
+      if(v){ Object.assign(DB, v); normalizeAfterLoad(); render(); }
+    });
+  }
+}
 
 /* ---------------- состояние приложения ---------------- */
 const S = {
-  screen:'splash',            // splash, welcome, roleSelect, phone, otp, profile, app
-  onboard:{ role:null, name:'', phone:'+992 ', password:'', otpResend:45, sessionId:null, confirmed:false },
-  activeRole:null,            // SELLER | COURIER | CUSTOMER | ADMIN
+  screen:'splash',
+  onboard:{ role:null, mode:null, verifyToken:null, verifyError:null, loginNotFoundChatId:null, registerConflict:null },
+  currentUserId:null,
+  demoMode:false,
+  activeRole:null,
   tabs:{ SELLER:'home', COURIER:'home', CUSTOMER:'home', ADMIN:'dash' },
-  sheet:null,                 // roleSwitcher | notifications | newOrder | orderDetail | chat | rating | newAddress
+  sheet:null,
   toast:null,
+  pushConnectToken:null,
   newOrder:{ step:0, phone:'', foundCustomerId:null, item:{name:'',qty:1,price:'',weight:'',comment:''}, addressId:null },
   currentOrderId:null,
-  chatText:'',
   ratingDraft:{stars:5, comment:''},
+  addrDraft:{label:'Дом', address:'', comment:''},
   filters:{ customerHistory:'ALL', adminOrders:'ALL' },
 };
 
-function notify(recipientRole, recipientId, channel, title, body, orderId){
-  DB.notifications.unshift({id:uid(), recipientRole, recipientId, channel, title, body, orderId, time:nowStr(), read:false});
+function notify(recipientId, channel, title, body, orderId, skipPush){
+  DB.notifications.unshift({id:uid(), recipientId, channel, title, body, orderId, time:nowStr(), read:false});
+  if(DB.notifications.length>60) DB.notifications.length = 60;
+  if(!skipPush){
+    const u = DB.users[recipientId];
+    if(u && u.pushChatId) tgCall(TG.pushBotToken, 'sendMessage', {chat_id:u.pushChatId, text:`${title}\n${body}`});
+  }
 }
 function toast(text){ S.toast = text; render(); setTimeout(()=>{ if(S.toast===text){S.toast=null; render();} }, 2600); }
+
+function userShop(userId){ const u = DB.users[userId]; return (u && u.shopId) ? DB.shops[u.shopId] : null; }
+function orderShop(order){ return userShop(order.sellerId); }
 
 /* ---------------- геометрия / dispatch ---------------- */
 function pxDist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
 function kmFromPx(px){ return Math.max(0.3, +(px/34).toFixed(1)); }
 function etaMin(km, transportKey){ const sp = TRANSPORT[transportKey].speed; return Math.max(3, Math.round(km/sp*60)+3); }
-
 function availableCouriers(){
   return Object.values(DB.couriers).filter(c=> c.status==='APPROVED' && c.online && c.available && c.activeDeliveries < c.maxActive);
 }
-
 function scoreCourier(courier, shop, addr){
   const dPickup = kmFromPx(pxDist(courier, shop));
   const dDrop = kmFromPx(pxDist(shop, addr));
@@ -305,21 +477,14 @@ function scoreCourier(courier, shop, addr){
   const score = proximity*.40 + etaScore*.20 + ratingScore*.15 + accScore*.10 + compScore*.10 + workloadScore*.05;
   return {score:Math.round(score), dPickup, dDrop, eta};
 }
-
 function startDispatch(order){
-  const shop = DB.shops[DB.shopId];
+  const shop = orderShop(order);
   const addr = DB.addresses[order.customerId].find(a=>a.id===order.addressId);
-  const ranked = availableCouriers().map(c=>{
-    const s = scoreCourier(c, shop, addr);
-    return {courierId:c.id, ...s};
-  }).sort((a,b)=> b.score-a.score);
-
+  const ranked = availableCouriers().map(c=>({courierId:c.id, ...scoreCourier(c, shop, addr)})).sort((a,b)=>b.score-a.score);
   order.dispatch = {
-    ranked,
-    wave:1,
+    ranked, wave:1,
     waveGroups: ranked.length>1 ? [ranked.slice(0, Math.ceil(ranked.length/2)), ranked.slice(Math.ceil(ranked.length/2))] : [ranked],
-    deadline: Date.now()+15000,
-    offers:{}, // courierId -> PENDING/SKIPPED/EXPIRED
+    deadline: Date.now()+15000, offers:{},
   };
   sendWave(order);
 }
@@ -328,148 +493,106 @@ function sendWave(order){
   group.forEach(r=>{
     order.dispatch.offers[r.courierId] = 'PENDING';
     const c = DB.couriers[r.courierId];
-    notify('COURIER', r.courierId, 'TELEGRAM', '🚨 Новый заказ',
-      `Заказ ${order.publicId} · Забрать ${r.dPickup} км · Доставить ${r.dDrop} км · Доход ${order.deliveryFee} ₽`, order.id);
+    notify(r.courierId, 'TELEGRAM', '🚨 Новый заказ',
+      `Заказ ${order.publicId} · Забрать ${r.dPickup} км · Доставить ${r.dDrop} км · Доход ${order.deliveryFee} ₽`, order.id, true);
+    sendTelegramOffer(c, order, r);
   });
   order.dispatch.deadline = Date.now()+15000;
 }
 function tickDispatch(order){
   if(order.status!=='SEARCHING_COURIER' || !order.dispatch) return;
   if(Date.now() < order.dispatch.deadline) return;
-  // истёк таймер текущей волны
   const group = order.dispatch.waveGroups[order.dispatch.wave-1] || [];
   group.forEach(r=>{ if(order.dispatch.offers[r.courierId]==='PENDING') order.dispatch.offers[r.courierId]='EXPIRED'; });
-  if(order.dispatch.wave < order.dispatch.waveGroups.length){
-    order.dispatch.wave++;
-    sendWave(order);
-  } else {
-    order.status = 'EXPIRED';
-    notify('SELLER', DB.shops[DB.shopId].ownerId, 'PUSH', 'Курьер не найден', `Заказ ${order.publicId}: свободных курьеров нет. Попробуйте ещё раз.`, order.id);
+  if(order.dispatch.wave < order.dispatch.waveGroups.length){ order.dispatch.wave++; sendWave(order); }
+  else {
+    order.status='EXPIRED';
+    const shop = orderShop(order);
+    if(shop) notify(shop.ownerId, 'PUSH', 'Курьер не найден', `Заказ ${order.publicId}: свободных курьеров нет.`, order.id);
+    persist();
   }
 }
-
 function acceptOffer(orderId, courierId){
   const order = DB.orders[orderId];
   if(order.status!=='SEARCHING_COURIER'){ toast('Заказ уже принят другим курьером'); return; }
   const courier = DB.couriers[courierId];
-  order.status='COURIER_ASSIGNED';
-  order.courierId = courierId;
-  order.pickupCode = code4();
-  order.deliveryCode = code4();
-  order.trackProgress = 0;
+  const shop = orderShop(order);
+  order.status='COURIER_ASSIGNED'; order.courierId=courierId; order.pickupCode=code4(); order.deliveryCode=code4(); order.trackProgress=0;
   courier.activeDeliveries++;
-  notify('SELLER', DB.shops[DB.shopId].ownerId, 'TELEGRAM', '🛵 Курьер назначен', `${DB.users[courierId].name} едет за заказом ${order.publicId}`, order.id);
-  notify('CUSTOMER', order.customerId, 'PUSH', 'Курьер найден', `${DB.users[courierId].name} уже в пути к магазину.`, order.id);
+  if(shop) notify(shop.ownerId, 'TELEGRAM', '🛵 Курьер назначен', `${DB.users[courierId].name} едет за заказом ${order.publicId}`, order.id);
+  notify(order.customerId, 'PUSH', 'Курьер найден', `${DB.users[courierId].name} уже в пути к магазину.`, order.id);
   DB.messages[order.id] = DB.messages[order.id] || [];
   DB.messages[order.id].push({id:uid(), sys:true, text:`Курьер ${DB.users[courierId].name} назначен на заказ`, time:nowStr()});
-  render();
+  persist(); render();
 }
 function skipOffer(orderId, courierId){
   const order = DB.orders[orderId];
   if(order.dispatch.offers[courierId]==='PENDING') order.dispatch.offers[courierId]='SKIPPED';
   render();
 }
-
 function createOrder(){
   const no = S.newOrder;
-  const shop = DB.shops[DB.shopId];
+  const sellerPersona = currentPersona();
+  const shop = userShop(sellerPersona.id);
   const item = no.item;
   const subtotal = (parseFloat(item.price)||0) * (parseInt(item.qty)||1);
   const deliveryFee = rnd(60,100);
   const id = uid();
-  const order = {
-    id, publicId: pubId('ORD'),
-    sellerId: shop.ownerId, customerId: no.foundCustomerId, addressId: no.addressId,
-    items:[{...item}], subtotal, deliveryFee, total: subtotal+deliveryFee,
-    status:'CREATED', createdAt: nowStr(), courierId:null,
-  };
+  const order = { id, publicId:pubId('ORD'), sellerId:sellerPersona.id, customerId:no.foundCustomerId, addressId:no.addressId,
+    items:[{...item}], subtotal, deliveryFee, total:subtotal+deliveryFee, status:'CREATED', createdAt:nowStr(), courierId:null };
   DB.orders[id] = order;
-  notify('CUSTOMER', order.customerId, 'PUSH', 'Заказ создан', `${shop.name} оформил заказ ${order.publicId}`, id);
-  order.status = 'SEARCHING_COURIER';
+  notify(order.customerId, 'PUSH', 'Заказ создан', `${shop.name} оформил заказ ${order.publicId}`, id);
+  order.status='SEARCHING_COURIER';
   startDispatch(order);
-  broadcastOrderToTelegramCouriers(order, shop);
   S.currentOrderId = id;
   S.newOrder = { step:0, phone:'', foundCustomerId:null, item:{name:'',qty:1,price:'',weight:'',comment:''}, addressId:null };
   S.sheet = 'orderDetail';
-  render();
+  persist(); render();
 }
-
-/* ---- интеграция с ботом-курьером через Firebase RTDB ----
-   Cloud Function на бэкенде слушает /liveOrders/{id}, рассылает
-   заказ всем зарегистрированным курьерам-ботам с кнопкой "Принять",
-   и пишет сюда courierChatId, когда кто-то из них нажал кнопку. */
-function broadcastOrderToTelegramCouriers(order, shop){
-  const addr = DB.addresses[order.customerId]?.find(a=>a.id===order.addressId);
-  rtdb.ref('liveOrders/'+order.id).set({
-    publicId: order.publicId,
-    shopName: shop.name,
-    itemName: order.items[0]?.name || '',
-    addressLabel: addr ? addr.label : '',
-    total: order.total,
-    createdAt: Date.now(),
-  });
-  rtdb.ref('liveOrders/'+order.id).on('value', snap=>{
-    const v = snap.val();
-    if(v && v.courierChatId && !order.courierId){
-      const courierId = 'tg_'+v.courierChatId;
-      if(!DB.users[courierId]){
-        DB.users[courierId] = {id:courierId, publicId:pubId('USR'), phone:'', name:v.courierName||'Курьер (Telegram)', role:'COURIER'};
-        DB.couriers[courierId] = {id:courierId, status:'APPROVED', online:true, available:false, activeDeliveries:1, maxActive:1, rating:5, ratingCount:0, x:0, y:0};
-      }
-      order.courierId = courierId;
-      order.status = 'COURIER_ASSIGNED';
-      notify('SELLER', order.sellerId, 'PUSH', 'Курьер найден', `${DB.users[courierId].name} принял заказ в Telegram`, order.id);
-      if(S.currentOrderId===order.id) render();
-    }
-  });
-}
-
 function courierAdvance(order){
-  const c = DB.couriers[order.courierId];
-  if(order.status==='COURIER_ASSIGNED'){
-    order.status='COURIER_GOING_TO_PICKUP'; order.trackProgress=0;
-  } else if(order.status==='COURIER_ARRIVED_PICKUP'){
-    // handled via code confirm on seller side
-  } else if(order.status==='PICKED_UP'){
+  if(order.status==='COURIER_ASSIGNED'){ order.status='COURIER_GOING_TO_PICKUP'; order.trackProgress=0; }
+  else if(order.status==='PICKED_UP'){
     order.status='IN_TRANSIT'; order.trackProgress=0;
-    notify('CUSTOMER', order.customerId, 'PUSH', 'Заказ в пути', `Курьер забрал товар и едет к вам. Код получения: ${order.deliveryCode}`, order.id);
+    notify(order.customerId, 'PUSH', 'Заказ в пути', `Курьер забрал товар и едет к вам. Код получения: ${order.deliveryCode}`, order.id);
   }
-  render();
+  persist(); render();
 }
 function courierArrived(order){
+  const shop = orderShop(order);
   if(order.status==='COURIER_GOING_TO_PICKUP'){
     order.status='COURIER_ARRIVED_PICKUP';
-    notify('SELLER', DB.shops[DB.shopId].ownerId, 'PUSH', 'Курьер приехал', `${DB.users[order.courierId].name} ждёт у магазина.`, order.id);
+    if(shop) notify(shop.ownerId, 'PUSH', 'Курьер приехал', `${DB.users[order.courierId].name} ждёт у магазина.`, order.id);
   } else if(order.status==='IN_TRANSIT' || order.status==='COURIER_NEAR_DESTINATION'){
-    order.status='COURIER_ARRIVED_DESTINATION_WAIT'; // внутр. флаг ожидания кода
-    notify('CUSTOMER', order.customerId, 'PUSH', 'Курьер на месте', `Назовите курьеру код: ${order.deliveryCode}`, order.id);
+    order.status='COURIER_ARRIVED_DESTINATION_WAIT';
+    notify(order.customerId, 'PUSH', 'Курьер на месте', `Назовите курьеру код: ${order.deliveryCode}`, order.id);
   }
-  render();
+  persist(); render();
 }
 function confirmPickupCode(order, entered){
   if(entered===order.pickupCode){
     order.status='PICKED_UP';
-    notify('COURIER', order.courierId, 'PUSH', 'Код верный', 'Можно ехать к покупателю.', order.id);
-    toast('Код подтверждён — товар передан курьеру');
-  } else { toast('Неверный код'); }
+    notify(order.courierId, 'PUSH', 'Код верный', 'Можно ехать к покупателю.', order.id);
+    toast('Код подтверждён — товар передан курьеру'); persist();
+  } else toast('Неверный код');
   render();
 }
 function confirmDeliveryCode(order, entered){
   if(entered===order.deliveryCode){
     order.status='DELIVERED';
-    const c = DB.couriers[order.courierId]; c.activeDeliveries = Math.max(0,c.activeDeliveries-1); c.completionRate = Math.min(1, c.completionRate+0.002);
-    notify('SELLER', DB.shops[DB.shopId].ownerId, 'TELEGRAM', '✅ Доставка завершена', `Заказ ${order.publicId} доставлен.`, order.id);
-    notify('CUSTOMER', order.customerId, 'PUSH', '✅ Доставка завершена', 'Спасибо! Оцените, пожалуйста, доставку.', order.id);
-    toast('Доставка завершена');
-  } else { toast('Неверный код'); }
+    const c = DB.couriers[order.courierId]; c.activeDeliveries=Math.max(0,c.activeDeliveries-1); c.completionRate=Math.min(1,c.completionRate+0.002);
+    const shop = orderShop(order);
+    if(shop) notify(shop.ownerId, 'TELEGRAM', '✅ Доставка завершена', `Заказ ${order.publicId} доставлен.`, order.id);
+    notify(order.customerId, 'PUSH', '✅ Доставка завершена', 'Спасибо! Оцените, пожалуйста, доставку.', order.id);
+    toast('Доставка завершена'); persist();
+  } else toast('Неверный код');
   render();
 }
 function cancelOrder(order, byRole){
   order.status='CANCELLED';
   if(order.courierId){ const c=DB.couriers[order.courierId]; c.activeDeliveries=Math.max(0,c.activeDeliveries-1); }
-  DB.messages[order.id] = DB.messages[order.id] || [];
+  DB.messages[order.id]=DB.messages[order.id]||[];
   DB.messages[order.id].push({id:uid(), sys:true, text:`Заказ отменён (${byRole==='SELLER'?'продавцом':'покупателем'})`, time:nowStr()});
-  render();
+  persist(); render();
 }
 function submitRating(order){
   DB.ratings[order.id] = {...S.ratingDraft, orderId:order.id};
@@ -478,10 +601,9 @@ function submitRating(order){
     c.rating = +(((c.rating*c.ratingCount)+S.ratingDraft.stars)/(c.ratingCount+1)).toFixed(2);
     c.ratingCount++;
   }
-  S.sheet=null; toast('Спасибо за оценку!'); render();
+  S.sheet=null; toast('Спасибо за оценку!'); persist(); render();
 }
 
-/* ---------------- глобальный тикер ---------------- */
 setInterval(()=>{
   let dirty=false;
   Object.values(DB.orders).forEach(o=>{
@@ -489,7 +611,7 @@ setInterval(()=>{
     if(o.status==='COURIER_GOING_TO_PICKUP' && o.trackProgress<1){ o.trackProgress=Math.min(1,o.trackProgress+1/14); dirty=true; }
     if(o.status==='IN_TRANSIT' && o.trackProgress<1){
       o.trackProgress=Math.min(1,o.trackProgress+1/18);
-      if(o.trackProgress>=0.8 && o.status==='IN_TRANSIT'){ o.status='COURIER_NEAR_DESTINATION'; notify('CUSTOMER', o.customerId,'PUSH','Курьер почти рядом','Ваш заказ будет через пару минут.', o.id); }
+      if(o.trackProgress>=0.8 && o.status==='IN_TRANSIT'){ o.status='COURIER_NEAR_DESTINATION'; notify(o.customerId,'PUSH','Курьер почти рядом','Ваш заказ будет через пару минут.', o.id); }
       dirty=true;
     }
     if(o.status==='COURIER_NEAR_DESTINATION' && o.trackProgress<1){ o.trackProgress=Math.min(1,o.trackProgress+1/6); dirty=true; }
@@ -497,54 +619,50 @@ setInterval(()=>{
   if(dirty && S.screen==='app') render();
 }, 1000);
 
-/* =========================================================
-   RENDER
-   ========================================================= */
+/* ========================================================= RENDER ========================================================= */
 function render(){
   const app = document.getElementById('app');
   app.innerHTML = `<div class="phone"><div class="screen">${screenHTML()}</div></div>`;
   bind();
 }
-
 function screenHTML(){
   switch(S.screen){
     case 'splash': return splashHTML();
-    case 'welcome': return welcomeHTML();
+    case 'entry': return entryHTML();
     case 'roleSelect': return roleSelectHTML();
-    case 'phone': return phoneHTML();
-    case 'otp': return otpHTML();
-    case 'login': return loginHTML();
+    case 'tgVerify': return tgVerifyHTML();
     case 'profile': return profileHTML();
+    case 'pushConnect':
+      if(!S.pushConnectToken) connectPush(S.currentUserId);
+      return pushConnectHTML();
     case 'app': return appShellHTML();
   }
 }
-
 function splashHTML(){
-  setTimeout(()=>{ if(S.screen==='splash'){ S.screen='welcome'; render(); } }, 1300);
-  return `<div class="center-flow">
-    <div class="splash-logo">D</div>
-    <div class="display" style="font-size:22px;font-weight:700;letter-spacing:.02em;">DELIVO</div>
-  </div>`;
+  setTimeout(()=>{ if(S.screen==='splash'){ S.screen='entry'; render(); } }, 1300);
+  return `<div class="center-flow"><div class="splash-logo">D</div><div class="display" style="font-size:22px;font-weight:700;letter-spacing:.02em;">DELIVO</div></div>`;
 }
-
-function welcomeHTML(){
+function entryHTML(){
   return `<div class="center-flow">
     <div class="splash-logo" style="width:64px;height:64px;font-size:26px;">D</div>
     <div class="display" style="font-size:28px;font-weight:700;margin-bottom:10px;">DELIVO</div>
     <div class="muted" style="margin-bottom:34px;font-size:15px;">Доставка становится проще.</div>
-    <button class="btn btn-primary" onclick="S.screen='roleSelect';render()">Регистрация</button>
-    <button class="btn btn-outline" style="margin-top:10px;" onclick="S.screen='login';render()">Вход</button>
+    <div class="stack">
+      <button class="btn btn-primary" onclick="goVerify('login')">Вход</button>
+      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.role=null;S.screen='roleSelect';render()">Регистрация</button>
+    </div>
+    <div style="margin-top:22px;"><a class="link" style="font-size:12.5px;cursor:pointer;color:var(--text-faint);font-weight:600;" onclick="S.onboard.mode='demo';S.onboard.role=null;S.screen='roleSelect';render()">Демо-режим без регистрации</a></div>
   </div>`;
 }
-
 function roleSelectHTML(){
   const roles = [
     {k:'SELLER', e:'🏪', t:'Я продавец', d:'Организовываю доставку'},
     {k:'COURIER', e:'🛵', t:'Я курьер', d:'Доставляю заказы'},
     {k:'CUSTOMER', e:'🛍️', t:'Я покупатель', d:'Получаю свои заказы'},
   ];
+  const mode = S.onboard.mode;
   return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">Шаг 1 из 3</div>
+    <div class="eyebrow">${mode==='demo'?'Демо-режим':'Регистрация'}</div>
     <h2 style="margin:0 0 22px;font-size:22px;">Кто вы в DELIVO?</h2>
     <div class="stack">
       ${roles.map(r=>`
@@ -554,278 +672,206 @@ function roleSelectHTML(){
         </div>`).join('')}
     </div>
     <div style="margin-top:26px;">
-      <button class="btn btn-primary" ${!S.onboard.role?'disabled':''} onclick="goPhone()">Продолжить</button>
+      <button class="btn btn-primary" ${!S.onboard.role?'disabled':''} onclick="${mode==='demo'?'enterDemo()':"goVerify('register')"}">Продолжить</button>
     </div>
+    <div style="margin-top:14px;text-align:center;"><a class="link" style="font-size:13px;color:var(--text-faint);cursor:pointer;" onclick="S.screen='entry';render()">← Назад</a></div>
   </div>`;
 }
-function goPhone(){
-  S.screen='phone'; render();
-}
-function personaForRole(role){
-  if(role==='SELLER') return DB.users[DB.shops[DB.shopId].ownerId];
-  if(role==='CUSTOMER') return DB.users[DB.customerId];
-  return Object.values(DB.users).find(u=>u.role==='COURIER' && DB.couriers[u.id].status==='APPROVED');
-}
+function enterDemo(){ S.demoMode=true; S.currentUserId=null; S.activeRole=S.onboard.role; S.screen='app'; render(); }
 
-function phoneHTML(){
+function goVerify(mode){
+  const token = randToken();
+  TG.pendingAuth[token] = {status:'waiting'};
+  S.onboard.mode = mode; S.onboard.verifyToken = token; S.onboard.verifyError = null;
+  S.onboard.loginNotFoundChatId=null; S.onboard.registerConflict=null;
+  S.screen='tgVerify'; render();
+}
+function tgVerifyHTML(){
+  const mode = S.onboard.mode;
+  if(mode==='login' && S.onboard.loginNotFoundChatId){
+    return `<div class="scroll" style="padding-top:80px;text-align:center;">
+      <div class="empty"><div class="em">🔎</div>Аккаунт с этим Telegram не найден.</div>
+      <button class="btn btn-primary" onclick="S.onboard.mode='register';S.onboard.loginNotFoundChatId=null;S.screen='roleSelect';render()">Зарегистрироваться</button>
+    </div>`;
+  }
+  if(mode==='register' && S.onboard.registerConflict){
+    const u = S.onboard.registerConflict;
+    return `<div class="scroll" style="padding-top:80px;text-align:center;">
+      <div class="empty"><div class="em">✅</div>Этот Telegram уже зарегистрирован как ${roleLabel(u.role)}.</div>
+      <button class="btn btn-primary" onclick="loginAsExisting('${u.id}')">Войти</button>
+    </div>`;
+  }
+  const token = S.onboard.verifyToken;
+  const pending = TG.pendingAuth[token];
+  const title = mode==='login' ? 'Вход через Telegram' : 'Подтверждение через Telegram';
+  if(!pending || pending.status==='waiting'){
+    const link = TG.authBotUsername ? `https://t.me/${TG.authBotUsername}?start=verify_${token}` : '#';
+    return `<div class="scroll" style="padding-top:60px;">
+      <div class="eyebrow">${mode==='login'?'Вход':'Шаг 2 из 3'}</div>
+      <h2 style="margin:0 0 10px;font-size:22px;">${title}</h2>
+      <p class="muted" style="font-size:14px;margin-bottom:26px;">Нажмите кнопку — откроется Telegram-бот, который пришлёт код подтверждения.</p>
+      <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">Получить код в Telegram</a>
+      ${!TG.authBotUsername? `<p class="faint" style="font-size:12px;margin-top:10px;">Подключаемся к боту…</p>`:''}
+      <p class="faint" style="font-size:12.5px;margin-top:16px;">После нажатия Start в боте здесь появится поле для ввода кода.</p>
+      <div style="margin-top:20px;"><a class="link" style="font-size:13px;cursor:pointer;" onclick="S.screen='${mode==='login'?'entry':'roleSelect'}';render()">← Назад</a></div>
+    </div>`;
+  }
   return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">Шаг 2 из 3</div>
-    <h2 style="margin:0 0 6px;font-size:22px;">Регистрация</h2>
-    <p class="muted" style="margin:0 0 22px;font-size:14px;">Номер подтвердим через Telegram-бота</p>
-    <div class="field"><label>Имя</label>
-      <input id="regName" value="${esc(S.onboard.name||'')}" placeholder="Как к вам обращаться"></div>
-    <div class="field"><label>Номер телефона</label>
-      <input id="phoneInput" value="${esc(S.onboard.phone)}" placeholder="+992 90 000-00-00"></div>
-    <div class="field"><label>Пароль</label>
-      <input id="regPass" type="password" value="${esc(S.onboard.password||'')}" placeholder="Не менее 6 символов"></div>
-    <div class="field"><label>Повторите пароль</label>
-      <input id="regPass2" type="password" placeholder="Ещё раз пароль"></div>
-    <button class="btn btn-primary" onclick="startPhoneVerification()">Подтвердить через Telegram</button>
+    <div class="eyebrow">${mode==='login'?'Вход':'Шаг 2 из 3'}</div>
+    <h2 style="margin:0 0 10px;font-size:22px;">Введите код</h2>
+    <p class="muted" style="font-size:14px;">Бот прислал 4-значный код в Telegram</p>
+    <div class="otp-boxes"><input id="verifyCodeInput" maxlength="4" style="width:160px;letter-spacing:8px;text-align:center;font-size:24px;font-weight:800;" placeholder="0000"></div>
+    ${S.onboard.verifyError? `<p style="color:var(--danger);font-size:13px;text-align:center;">${esc(S.onboard.verifyError)}</p>`:''}
+    <button class="btn btn-primary" style="margin-top:10px;" onclick="submitVerifyCode()">Подтвердить</button>
   </div>`;
 }
-function startPhoneVerification(){
-  const name = document.getElementById('regName').value.trim();
-  let v = document.getElementById('phoneInput').value.trim();
-  const pass = document.getElementById('regPass').value;
-  const pass2 = document.getElementById('regPass2').value;
-
-  if(!name){ toast('Введите имя'); return; }
-  if(!v){ toast('Введите номер телефона'); return; }
-  if(pass.length<6){ toast('Пароль — минимум 6 символов'); return; }
-  if(pass!==pass2){ toast('Пароли не совпадают'); return; }
-
-  if(!v.startsWith('+992')) v = '+992 ' + v.replace(/^\+?992\s*/, '');
-  S.onboard.name = name;
-  S.onboard.phone = v;
-  S.onboard.password = pass;
-  S.onboard.sessionId = uid()+'_'+rnd(1000,9999);
-  S.onboard.confirmed = false;
-  S.onboard.otpResend = 45;
-
-  // создаём "заявку на подтверждение" — статус меняет только бэкенд (бот),
-  // клиент не может сам выставить status:'confirmed', см. правила RTDB в SETUP.md
-  rtdb.ref('verifications/'+S.onboard.sessionId).set({
-    phone: S.onboard.phone,
-    status: 'pending',
-    createdAt: Date.now(),
-  });
-
-  S.screen='otp'; render();
-  tickResend();
-  window.open(`https://t.me/${APP_CONFIG.verifyBotUsername}?start=${S.onboard.sessionId}`, '_blank');
-  listenForPhoneConfirmation(S.onboard.sessionId);
-}
-function reopenVerifyBot(){
-  window.open(`https://t.me/${APP_CONFIG.verifyBotUsername}?start=${S.onboard.sessionId}`, '_blank');
-}
-/* Firebase Auth требует email — превращаем номер телефона в
-   псевдо-email вида "992901234567@delivo.app". Сам номер как логин
-   и пароль пользователя проверяет сервер Firebase, а не JS в браузере. */
-function phoneToEmail(phone){
-  const digits = phone.replace(/\D/g,'');
-  return digits + '@delivo.app';
-}
-function listenForPhoneConfirmation(sessionId){
-  rtdb.ref('verifications/'+sessionId).on('value', snap=>{
-    const v = snap.val();
-    if(v && v.status==='confirmed' && S.onboard.sessionId===sessionId && S.screen==='otp'){
-      S.onboard.confirmed = true;
-      finalizeRegistration();
+function submitVerifyCode(){
+  const token = S.onboard.verifyToken;
+  const pending = TG.pendingAuth[token];
+  const entered = document.getElementById('verifyCodeInput').value.trim();
+  if(!pending || entered!==pending.code){ S.onboard.verifyError='Неверный код'; render(); return; }
+  const chatId = pending.chatId;
+  const existing = Object.values(DB.users).find(u=>u.telegramChatId===chatId);
+  if(S.onboard.mode==='login'){
+    if(existing){
+      S.currentUserId=existing.id; S.activeRole=existing.role; S.demoMode=false; S.screen='app';
+      toast(`С возвращением, ${(existing.name||'').split(' ')[0]||''}!`);
+    } else { S.onboard.loginNotFoundChatId = chatId; }
+  } else {
+    if(existing){ S.onboard.registerConflict = existing; }
+    else {
+      const id = uid();
+      DB.users[id] = {id, publicId:pubId('USR'), role:S.onboard.role, name:'', phone:'', telegramChatId:chatId};
+      S.currentUserId = id; S.screen='profile'; persist();
     }
-  });
-}
-async function finalizeRegistration(){
-  try{
-    const email = phoneToEmail(S.onboard.phone);
-    const cred = await auth.createUserWithEmailAndPassword(email, S.onboard.password);
-    await rtdb.ref('users/'+cred.user.uid).set({
-      name: S.onboard.name,
-      phone: S.onboard.phone,
-      role: S.onboard.role,
-      createdAt: Date.now(),
-    });
-  }catch(err){
-    // если аккаунт с таким номером уже существует и т.п. — не блокируем демо-показ профиля
-    console.warn('Firebase Auth:', err.message);
   }
-  S.screen='profile'; render();
+  render();
 }
-function tickResend(){
-  if(S.screen!=='otp') return;
-  if(S.onboard.otpResend>0){ S.onboard.otpResend--; setTimeout(tickResend,1000); const el=document.getElementById('resendTimer'); if(el) el.textContent = S.onboard.otpResend; }
-}
-function otpHTML(){
-  return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">Шаг 2 из 3</div>
-    <h2 style="margin:0 0 6px;font-size:22px;">Подтвердите номер</h2>
-    <p class="muted" style="margin:0 0 20px;font-size:14px;">Мы открыли Telegram-бота — нажмите там «✅ Подтвердить», чтобы завершить регистрацию номера ${esc(S.onboard.phone)}</p>
-    <div class="card" style="text-align:center;padding:26px 18px;">
-      <div class="pulse-dot" style="margin:0 auto 10px;"></div>
-      <div class="faint" style="font-size:13px;">Ждём подтверждения в Telegram…</div>
-    </div>
-    <p class="faint" style="font-size:13px;text-align:center;margin-top:14px;">Бот не открылся? <a class="link" href="#" onclick="reopenVerifyBot();return false;">Открыть ещё раз</a> (<span id="resendTimer">${S.onboard.otpResend}</span> сек)</p>
-  </div>`;
+function loginAsExisting(userId){
+  const u = DB.users[userId];
+  S.currentUserId=u.id; S.activeRole=u.role; S.demoMode=false; S.screen='app';
+  toast(`С возвращением, ${(u.name||'').split(' ')[0]||''}!`); render();
 }
 
-function loginHTML(){
-  return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">Вход</div>
-    <h2 style="margin:0 0 22px;font-size:22px;">С возвращением</h2>
-    <div class="field"><label>Логин (номер телефона)</label>
-      <input id="loginId" placeholder="+992 90 000-00-00 или логин"></div>
-    <div class="field"><label>Пароль</label>
-      <input id="loginPass" type="password" placeholder="Пароль" onkeydown="if(event.key==='Enter')loginSubmit()"></div>
-    <button class="btn btn-primary" onclick="loginSubmit()">Войти</button>
-    <button class="btn btn-ghost" style="margin-top:10px;" onclick="S.screen='welcome';render()">Назад</button>
-  </div>`;
-}
-async function loginSubmit(){
-  const idVal = document.getElementById('loginId').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  if(!idVal || !pass){ toast('Заполните оба поля'); return; }
-
-  // Специальный админ-логин: под капотом это тоже настоящий Firebase Auth
-  // аккаунт (email idiev@delivo.admin), пароль проверяет сервер, а не JS.
-  if(idVal.toUpperCase()==='IDIEV'){
-    try{
-      await auth.signInWithEmailAndPassword('idiev@delivo.admin', pass);
-      S.screen='welcome';
-      S.sheet='secretSettings';
-      render();
-    }catch(err){
-      toast('Неверный логин или пароль');
-    }
-    return;
-  }
-
-  try{
-    const email = phoneToEmail(idVal);
-    const cred = await auth.signInWithEmailAndPassword(email, pass);
-    const snap = await rtdb.ref('users/'+cred.user.uid).get();
-    const profile = snap.val();
-    S.onboard.role = profile ? profile.role : S.onboard.role;
-    S.activeRole = profile ? profile.role : S.onboard.role;
-    S.screen='app';
-    render();
-  }catch(err){
-    toast('Неверный логин или пароль');
-  }
-}
+let cp_transport=null;
 function profileHTML(){
-  const role = S.onboard.role;
-  const persona = personaForRole(role);
+  const persona = DB.users[S.currentUserId];
+  const role = persona.role;
   if(role==='SELLER'){
-    const shop = DB.shops[DB.shopId];
     return `<div class="scroll" style="padding-top:44px;">
       <div class="eyebrow">Шаг 3 из 3</div>
       <h2 style="margin:0 0 20px;font-size:22px;">Профиль магазина</h2>
-      <div class="field"><label>Имя владельца</label><input id="pf-name" value="${esc(persona.name)}"></div>
-      <div class="field"><label>Название магазина</label><input id="pf-shop" value="${esc(shop.name)}"></div>
-      <div class="field"><label>Адрес</label><input id="pf-addr" value="${esc(shop.address)}"></div>
-      <div class="field"><label>📍 Расположение на карте</label>
-        <div class="mapbox" style="height:150px;">${miniMapSVG([{x:shop.x,y:shop.y,icon:'🏪'}])}</div>
-        <p class="faint" style="font-size:12px;margin:6px 0 0;">Местоположение уже определено демо-данными.</p>
-      </div>
-      <button class="btn btn-primary" onclick="saveProfile('SELLER')">Сохранить магазин</button>
+      <div class="field"><label>Ваше имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
+      <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
+      <div class="field"><label>Название магазина</label><input id="pf-shop" placeholder="Мой магазин"></div>
+      <div class="field"><label>Адрес</label><input id="pf-addr" placeholder="Улица, дом"></div>
+      <button class="btn btn-primary" onclick="saveProfile()">Сохранить магазин</button>
     </div>`;
   }
   if(role==='COURIER'){
-    const cp = DB.couriers[persona.id];
     return `<div class="scroll" style="padding-top:44px;">
       <div class="eyebrow">Шаг 3 из 3</div>
       <h2 style="margin:0 0 20px;font-size:22px;">Профиль курьера</h2>
-      <div class="field"><label>Имя</label><input id="pf-name" value="${esc(persona.name)}"></div>
+      <div class="field"><label>Имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
+      <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
       <div class="field"><label>Тип транспорта</label>
         <div class="row">
           ${Object.entries(TRANSPORT).map(([k,v])=>`
-            <div class="role-card ${cp.transport===k?'sel':''}" style="padding:12px;justify-content:center;flex-direction:column;text-align:center;gap:4px;" onclick="cp_transport='${k}';render()">
+            <div class="role-card ${cp_transport===k?'sel':''}" style="padding:12px;justify-content:center;flex-direction:column;text-align:center;gap:4px;" onclick="cp_transport='${k}';render()">
               <div style="font-size:20px;">${v.icon}</div><div style="font-size:11px;">${v.label}</div>
             </div>`).join('')}
         </div>
       </div>
-      <div class="field"><label>Рабочая зона</label><input value="${esc(cp.city)} · ${esc(cp.zone)}" disabled></div>
-      <button class="btn btn-primary" onclick="saveProfile('COURIER')">Сохранить</button>
-      <div class="divider"></div>
-      <div class="card" style="text-align:center;">
-        <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Подключите Telegram</div>
-        <div class="muted" style="font-size:13px;margin-bottom:14px;">Получайте новые заказы мгновенно.</div>
-        <button class="btn btn-ghost btn-sm" onclick="toast('Демо: Telegram уже условно подключён')">Подключить Telegram</button>
-      </div>
+      <button class="btn btn-primary" onclick="saveProfile()">Сохранить</button>
     </div>`;
   }
-  // CUSTOMER
-  const addrs = DB.addresses[persona.id];
   return `<div class="scroll" style="padding-top:44px;">
     <div class="eyebrow">Шаг 3 из 3</div>
     <h2 style="margin:0 0 20px;font-size:22px;">Профиль покупателя</h2>
-    <div class="field"><label>Имя</label><input id="pf-name" value="${esc(persona.name)}"></div>
-    <div class="field"><label>Адреса доставки (макс. 3)</label>
-      <div class="stack-sm">
-        ${addrs.map(a=>`<div class="card" style="padding:12px;"><div style="font-weight:700;font-size:13.5px;">${a.label==='Дом'?'🏠':a.label==='Работа'?'💼':'📍'} ${esc(a.label)}</div><div class="faint" style="font-size:12.5px;">${esc(a.address)}</div></div>`).join('')}
-      </div>
-    </div>
-    <button class="btn btn-primary" onclick="saveProfile('CUSTOMER')">Сохранить</button>
+    <div class="field"><label>Имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
+    <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
+    <p class="faint" style="font-size:12.5px;">Адреса доставки можно будет добавить сразу после регистрации, во вкладке «Адреса».</p>
+    <button class="btn btn-primary" onclick="saveProfile()">Сохранить</button>
   </div>`;
 }
-let cp_transport=null;
-function saveProfile(role){
-  const persona = personaForRole(role);
-  const nameEl = document.getElementById('pf-name');
-  if(nameEl && nameEl.value.trim()) persona.name = nameEl.value.trim();
-  if(role==='SELLER'){
-    const shop = DB.shops[DB.shopId];
-    const s = document.getElementById('pf-shop'); if(s&&s.value.trim()) shop.name=s.value.trim();
-    const a = document.getElementById('pf-addr'); if(a&&a.value.trim()) shop.address=a.value.trim();
+function saveProfile(){
+  const persona = DB.users[S.currentUserId];
+  const name = document.getElementById('pf-name').value.trim();
+  const phone = document.getElementById('pf-phone') ? document.getElementById('pf-phone').value.trim() : '';
+  persona.name = name || 'Без имени';
+  persona.phone = phone;
+  if(persona.role==='SELLER'){
+    const shopId = uid();
+    DB.shops[shopId] = {id:shopId, publicId:pubId('SHP'), ownerId:persona.id,
+      name:(document.getElementById('pf-shop').value.trim())||'Мой магазин',
+      address:(document.getElementById('pf-addr').value.trim())||'', x:rnd(40,280), y:rnd(30,190), status:'ACTIVE'};
+    persona.shopId = shopId;
+  } else if(persona.role==='COURIER'){
+    const transport = cp_transport || 'MOTO';
+    DB.couriers[persona.id] = {id:persona.id, publicId:pubId('DRV'), transport, rating:5.0, ratingCount:0,
+      acceptanceRate:1, completionRate:1, x:rnd(30,280), y:rnd(20,190), status:'APPROVED', online:true, available:true,
+      activeDeliveries:0, maxActive: transport==='WALK'?1:transport==='BIKE'?2:transport==='MOTO'?2:3, city:'Город', zone:'Зона 1'};
+  } else if(persona.role==='CUSTOMER'){
+    DB.customers[persona.id] = {id:persona.id};
+    DB.addresses[persona.id] = DB.addresses[persona.id] || [];
   }
-  if(role==='COURIER' && cp_transport){ DB.couriers[persona.id].transport = cp_transport; }
-  S.activeRole = role;
-  S.screen='app';
-  toast(`Добро пожаловать, ${persona.name.split(' ')[0]}!`);
+  cp_transport=null; persist();
+  S.screen='pushConnect'; render();
+}
+function pushConnectHTML(){
+  const persona = DB.users[S.currentUserId];
+  const linked = !!persona.pushChatId;
+  const token = S.pushConnectToken;
+  const link = (TG.pushBotUsername && token) ? `https://t.me/${TG.pushBotUsername}?start=push_${token}` : '#';
+  return `<div class="center-flow">
+    <div style="font-size:44px;margin-bottom:14px;">${linked?'✅':'🔔'}</div>
+    <h2 style="font-size:21px;margin:0 0 10px;">${linked?'Push-уведомления подключены':'Подключите push-уведомления'}</h2>
+    <p class="muted" style="font-size:14px;margin-bottom:26px;">${linked?'Вы будете получать уведомления о заказах в Telegram.':'Получайте уведомления о заказах и статусах доставки прямо в Telegram.'}</p>
+    ${!linked? `<a class="btn btn-primary" style="margin-bottom:12px;" href="${link}" target="_blank" rel="noopener">Подключить Telegram</a>`:''}
+    <button class="btn ${linked?'btn-primary':'btn-ghost'}" onclick="finalizeRegistration()">${linked?'Готово':'Пропустить'}</button>
+  </div>`;
+}
+function finalizeRegistration(){
+  const persona = DB.users[S.currentUserId];
+  S.activeRole = persona.role; S.demoMode=false; S.pushConnectToken=null; S.screen='app';
+  persist();
+  toast(`Добро пожаловать, ${(persona.name||'').split(' ')[0]||''}!`);
   render();
 }
 
 /* ---------------- APP SHELL ---------------- */
 function appShellHTML(){
-  const role = S.activeRole;
   let body='';
-  if(role==='SELLER') body = sellerHTML();
-  else if(role==='COURIER') body = courierHTML();
-  else if(role==='CUSTOMER') body = customerHTML();
+  if(S.activeRole==='SELLER') body = sellerHTML();
+  else if(S.activeRole==='COURIER') body = courierHTML();
+  else if(S.activeRole==='CUSTOMER') body = customerHTML();
   else body = adminHTML();
-
-  return `
-    ${topbarHTML()}
-    ${body}
-    ${bottomNavHTML()}
-    ${S.toast? `<div class="toast">${esc(S.toast)}</div>`:''}
-    ${sheetHTML()}
-  `;
+  return `${topbarHTML()}${body}${bottomNavHTML()}${S.toast? `<div class="toast">${esc(S.toast)}</div>`:''}${sheetHTML()}`;
 }
-
 function currentPersona(){
-  if(S.activeRole==='SELLER') return DB.users[DB.shops[DB.shopId].ownerId];
-  if(S.activeRole==='CUSTOMER') return DB.users[DB.customerId];
-  if(S.activeRole==='COURIER') return Object.values(DB.users).find(u=>u.role==='COURIER' && DB.couriers[u.id].status==='APPROVED');
+  if(S.currentUserId && DB.users[S.currentUserId]) return DB.users[S.currentUserId];
+  if(S.activeRole==='SELLER') return DB.users[DB.shops[DB.demoShopId].ownerId];
+  if(S.activeRole==='CUSTOMER') return DB.users[DB.demoCustomerId];
+  if(S.activeRole==='COURIER') return Object.values(DB.users).find(u=>u.role==='COURIER' && DB.couriers[u.id] && DB.couriers[u.id].status==='APPROVED');
   return null;
 }
 function roleAvatar(role){ return {SELLER:'🏪',COURIER:'🛵',CUSTOMER:'🛍️',ADMIN:'🛠️'}[role]; }
 function roleLabel(role){ return {SELLER:'Продавец',COURIER:'Курьер',CUSTOMER:'Покупатель',ADMIN:'Админ'}[role]; }
-
 function topbarHTML(){
   const persona = currentPersona();
-  const unread = DB.notifications.filter(n=> n.recipientRole===S.activeRole && !n.read).length;
+  const unread = DB.notifications.filter(n=> (S.activeRole==='ADMIN'?true:(persona && n.recipientId===persona.id)) && !n.read).length;
+  const pillClick = S.demoMode ? `onclick="S.sheet='roleSwitcher';render()"` : (S.activeRole!=='ADMIN' ? `onclick="S.tabs['${S.activeRole}']='me';render()"` : '');
   return `<div class="topbar">
-    <div class="brandmark"><div class="logo" onclick="tapLogo()">D</div><div style="font-weight:800;font-size:15px;">DELIVO</div></div>
+    <div class="brandmark"><div class="logo">D</div><div style="font-weight:800;font-size:15px;">DELIVO</div></div>
     <div style="display:flex;gap:8px;align-items:center;">
       <div class="icon-btn" onclick="S.sheet='notifications';render()">🔔${unread?`<div class="badge">${unread}</div>`:''}</div>
-      <div class="role-pill" onclick="S.sheet='roleSwitcher';render()">
+      <div class="role-pill" ${pillClick}>
         <div class="av">${roleAvatar(S.activeRole)}</div>
-        <div style="font-size:12.5px;font-weight:700;">${persona? persona.name.split(' ')[0] : 'Админ'}</div>
+        <div style="font-size:12.5px;font-weight:700;">${persona? persona.name.split(' ')[0] : 'Админ'}${S.demoMode?' · демо':''}</div>
       </div>
     </div>
   </div>`;
 }
-
 function bottomNavHTML(){
   const cfg = {
     SELLER:[['home','🏠','Главная'],['orders','📦','Заказы'],['deliveries','🚚','Доставки'],['shop','🏪','Магазин'],['me','👤','Профиль']],
@@ -833,21 +879,15 @@ function bottomNavHTML(){
     CUSTOMER:[['home','🏠','Главная'],['track','🚚','Заказ'],['history','🧾','История'],['addresses','📍','Адреса'],['me','👤','Профиль']],
     ADMIN:[['dash','📊','Дашборд'],['couriers','🛵','Курьеры'],['orders','📦','Заказы'],['shops','🏪','Магазины']],
   }[S.activeRole];
-  return `<div class="bottomnav">
-    ${cfg.map(([k,ico,label])=>`
+  return `<div class="bottomnav">${cfg.map(([k,ico,label])=>`
       <div class="navitem ${S.tabs[S.activeRole]===k?'active':''}" onclick="S.tabs['${S.activeRole}']='${k}';render()">
         <div class="ico">${ico}</div><div>${label}</div>
-      </div>`).join('')}
-  </div>`;
+      </div>`).join('')}</div>`;
 }
-
-/* ---------------- mini SVG map ---------------- */
 function miniMapSVG(points, opts={}){
-  const w=320,h= opts.h||150;
+  const w=320,h=opts.h||150;
   let path='';
-  if(opts.route){
-    path = `<path d="M${opts.route[0].x},${opts.route[0].y} Q ${(opts.route[0].x+opts.route[1].x)/2},${Math.min(opts.route[0].y,opts.route[1].y)-30} ${opts.route[1].x},${opts.route[1].y}" fill="none" stroke="#262C38" stroke-width="2" stroke-dasharray="5,6"/>`;
-  }
+  if(opts.route){ path = `<path d="M${opts.route[0].x},${opts.route[0].y} Q ${(opts.route[0].x+opts.route[1].x)/2},${Math.min(opts.route[0].y,opts.route[1].y)-30} ${opts.route[1].x},${opts.route[1].y}" fill="none" stroke="#262C38" stroke-width="2" stroke-dasharray="5,6"/>`; }
   const dots = Array.from({length:26},(_,i)=>`<circle cx="${(i%7)*48+14}" cy="${Math.floor(i/7)*46+16}" r="1.2" fill="#1B2029"/>`).join('');
   const markers = points.map(p=>`
     <g transform="translate(${p.x},${p.y})">
@@ -861,8 +901,9 @@ function miniMapSVG(points, opts={}){
 
 /* ---------------- SELLER ---------------- */
 function sellerHTML(){
-  const shop = DB.shops[DB.shopId];
-  const myOrders = Object.values(DB.orders).filter(o=>o.sellerId===shop.ownerId).sort((a,b)=>b.id.localeCompare(a.id));
+  const persona = currentPersona();
+  const shop = userShop(persona.id) || DB.shops[DB.demoShopId];
+  const myOrders = Object.values(DB.orders).filter(o=>o.sellerId===persona.id).sort((a,b)=>b.id.localeCompare(a.id));
   const tab = S.tabs.SELLER;
   if(tab==='home'){
     const today = myOrders.length;
@@ -870,7 +911,7 @@ function sellerHTML(){
     const revenue = myOrders.filter(o=>o.status==='DELIVERED').reduce((s,o)=>s+o.total,0);
     return `<div class="scroll">
       <div class="eyebrow">С возвращением</div>
-      <h2 style="margin:0 0 2px;font-size:21px;">Здравствуйте, ${esc(DB.users[shop.ownerId].name.split(' ')[0])} 👋</h2>
+      <h2 style="margin:0 0 2px;font-size:21px;">Здравствуйте, ${esc(persona.name.split(' ')[0])} 👋</h2>
       <div class="muted" style="font-size:14px;margin-bottom:18px;">🏪 ${esc(shop.name)}</div>
       <button class="btn btn-primary" style="margin-bottom:18px;" onclick="openNewOrder()">+ Новый заказ</button>
       <div class="row" style="margin-bottom:6px;">
@@ -880,15 +921,13 @@ function sellerHTML(){
       </div>
       <div class="divider"></div>
       <div class="eyebrow">Последние заказы</div>
-      ${orderListHTML(myOrders.slice(0,5), 'SELLER')}
+      ${orderListHTML(myOrders.slice(0,5))}
     </div>`;
   }
-  if(tab==='orders'){
-    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Заказы</h2>${orderListHTML(myOrders,'SELLER')}</div>`;
-  }
+  if(tab==='orders') return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Заказы</h2>${orderListHTML(myOrders)}</div>`;
   if(tab==='deliveries'){
     const active = myOrders.filter(o=>!['DELIVERED','CANCELLED','EXPIRED','CREATED'].includes(o.status));
-    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Активные доставки</h2>${orderListHTML(active,'SELLER')}</div>`;
+    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Активные доставки</h2>${orderListHTML(active)}</div>`;
   }
   if(tab==='shop'){
     return `<div class="scroll">
@@ -896,17 +935,15 @@ function sellerHTML(){
       <div class="mapbox" style="height:140px;margin-bottom:14px;">${miniMapSVG([{x:shop.x,y:shop.y,icon:'🏪'}])}</div>
       <div class="card stack-sm">
         <div class="kv"><span class="k">Название</span><span>${esc(shop.name)}</span></div>
-        <div class="kv"><span class="k">Адрес</span><span>${esc(shop.address)}</span></div>
+        <div class="kv"><span class="k">Адрес</span><span>${esc(shop.address||'—')}</span></div>
         <div class="kv"><span class="k">ID</span><span class="faint">${shop.publicId}</span></div>
         <div class="kv"><span class="k">Статус</span><span class="chip st-done">Активен</span></div>
       </div>
     </div>`;
   }
-  // me
-  return meHTML(DB.users[shop.ownerId], 'SELLER');
+  return meHTML(persona);
 }
-
-function orderListHTML(orders, viewerRole){
+function orderListHTML(orders){
   if(!orders.length) return `<div class="empty"><div class="em">📭</div>Заказов пока нет</div>`;
   return `<div class="stack-sm">${orders.map(o=>{
     const meta = STATUS_META[o.status] || STATUS_META.CREATED;
@@ -919,15 +956,14 @@ function orderListHTML(orders, viewerRole){
     </div>`;
   }).join('')}</div>`;
 }
-
-function meHTML(user, role){
-  const extra = role==='COURIER' ? DB.couriers[user.id] : null;
+function meHTML(user){
+  const extra = user.role==='COURIER' ? DB.couriers[user.id] : null;
   return `<div class="scroll">
     <h2 style="font-size:19px;margin:6px 0 16px;">Профиль</h2>
     <div class="card" style="text-align:center;padding:26px 18px;">
-      <div style="width:64px;height:64px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px;">${roleAvatar(role)}</div>
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px;">${roleAvatar(user.role)}</div>
       <div style="font-weight:800;font-size:16px;">${esc(user.name)}</div>
-      <div class="faint" style="font-size:13px;">${esc(user.phone)}</div>
+      <div class="faint" style="font-size:13px;">${esc(user.phone||'—')}</div>
       <div class="faint" style="font-size:11.5px;margin-top:4px;">${user.publicId}</div>
     </div>
     ${extra? `<div class="card stack-sm">
@@ -935,22 +971,26 @@ function meHTML(user, role){
       <div class="kv"><span class="k">Рейтинг</span><span>⭐ ${extra.rating}</span></div>
       <div class="kv"><span class="k">Статус</span><span>${extra.status==='APPROVED'?'✅ Одобрен':'⏳ На проверке'}</span></div>
     </div>`:''}
-    <button class="btn btn-outline" style="margin-top:14px;" onclick="S.screen='welcome';S.activeRole=null;render()">Выйти из демо</button>
+    ${user.telegramChatId? `<div class="card stack-sm">
+      <div class="kv"><span class="k">Push-уведомления</span><span>${user.pushChatId?'✅ Подключены':'—'}</span></div>
+      ${!user.pushChatId? `<button class="btn btn-ghost btn-sm" onclick="openPushFromProfile('${user.id}')">Подключить push-уведомления</button>`:''}
+    </div>`:''}
+    <button class="btn btn-outline" style="margin-top:14px;" onclick="logout()">Выйти</button>
   </div>`;
 }
-
-function openNewOrder(){ S.sheet='newOrder'; S.newOrder={ step:0, phone:DB.users[DB.customerId].phone, foundCustomerId:null, item:{name:'',qty:1,price:'',weight:'',comment:''}, addressId:null }; render(); }
+function openPushFromProfile(userId){ connectPush(userId); S.sheet='pushLink'; render(); }
+function logout(){ S.currentUserId=null; S.activeRole=null; S.demoMode=false; S.screen='entry'; render(); }
+function openNewOrder(){ S.sheet='newOrder'; S.newOrder={ step:0, phone:'', foundCustomerId:null, item:{name:'',qty:1,price:'',weight:'',comment:''}, addressId:null }; render(); }
 function openOrder(id){ S.currentOrderId=id; S.sheet='orderDetail'; render(); }
 
 /* ---------------- COURIER ---------------- */
 function courierHTML(){
-  const me = Object.values(DB.users).find(u=>u.role==='COURIER' && DB.couriers[u.id].status==='APPROVED');
+  const me = currentPersona();
   const cp = DB.couriers[me.id];
   const myOrders = Object.values(DB.orders).filter(o=>o.courierId===me.id);
   const activeOrder = myOrders.find(o=>!['DELIVERED','CANCELLED','EXPIRED'].includes(o.status));
   const pendingOffers = Object.values(DB.orders).filter(o=> o.status==='SEARCHING_COURIER' && o.dispatch && o.dispatch.offers[me.id]==='PENDING');
   const tab = S.tabs.COURIER;
-
   if(tab==='home'){
     return `<div class="scroll">
       <div class="eyebrow">С возвращением</div>
@@ -963,36 +1003,25 @@ function courierHTML(){
       ${pendingOffers.length? `<div class="eyebrow" style="margin-top:14px;">Новые заказы</div>${pendingOffers.map(o=>offerCardHTML(o, me.id)).join('')}` : (!activeOrder? `<div class="empty"><div class="em">🛵</div>Пока нет предложений заказов</div>`:'')}
     </div>`;
   }
-  if(tab==='offers'){
-    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Новые заказы</h2>
-      ${pendingOffers.length? pendingOffers.map(o=>offerCardHTML(o, me.id)).join('') : `<div class="empty"><div class="em">📭</div>Нет активных предложений</div>`}</div>`;
-  }
-  if(tab==='active'){
-    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Доставка</h2>
-      ${activeOrder? courierActiveOrderHTML(activeOrder) : `<div class="empty"><div class="em">🛵</div>Сейчас нет активного заказа</div>`}</div>`;
-  }
+  if(tab==='offers') return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Новые заказы</h2>${pendingOffers.length? pendingOffers.map(o=>offerCardHTML(o, me.id)).join('') : `<div class="empty"><div class="em">📭</div>Нет активных предложений</div>`}</div>`;
+  if(tab==='active') return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Доставка</h2>${activeOrder? courierActiveOrderHTML(activeOrder) : `<div class="empty"><div class="em">🛵</div>Сейчас нет активного заказа</div>`}</div>`;
   if(tab==='earnings'){
     const done = myOrders.filter(o=>o.status==='DELIVERED');
     const total = done.reduce((s,o)=>s+o.deliveryFee,0);
     return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Заработок</h2>
       <div class="card" style="text-align:center;padding:26px;"><div class="faint" style="font-size:12.5px;">Всего заработано</div><div style="font-weight:800;font-size:30px;font-family:'Unbounded';">${total} ₽</div><div class="faint" style="font-size:12.5px;margin-top:4px;">${done.length} доставок</div></div>
-      ${orderListHTML(done,'COURIER')}
-    </div>`;
+      ${orderListHTML(done)}</div>`;
   }
-  return meHTML(me,'COURIER');
+  return meHTML(me);
 }
-function toggleOnline(){
-  const me = Object.values(DB.users).find(u=>u.role==='COURIER' && DB.couriers[u.id].status==='APPROVED');
-  DB.couriers[me.id].online = !DB.couriers[me.id].online;
-  render();
-}
+function toggleOnline(){ const me=currentPersona(); DB.couriers[me.id].online=!DB.couriers[me.id].online; persist(); render(); }
 function offerCardHTML(o, courierId){
-  const shop = DB.shops[DB.shopId];
+  const shop = orderShop(o);
   const info = o.dispatch.ranked.find(r=>r.courierId===courierId);
   const secsLeft = Math.max(0, Math.round((o.dispatch.deadline - Date.now())/1000));
   return `<div class="offer-card" style="margin-bottom:12px;">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div class="pulse-dot"></div><div style="font-weight:800;font-size:13.5px;">Новый заказ · ${o.publicId}</div></div>
-    <div class="kv"><span class="k">🏪 Забрать</span><span>${esc(shop.name)} · ${info?info.dPickup:'–'} км</span></div>
+    <div class="kv"><span class="k">🏪 Забрать</span><span>${shop?esc(shop.name):'—'} · ${info?info.dPickup:'–'} км</span></div>
     <div class="kv"><span class="k">🏠 Доставить</span><span>${info?info.dDrop:'–'} км</span></div>
     <div class="kv"><span class="k">💰 Доход</span><span>${o.deliveryFee} ₽</span></div>
     <div class="kv"><span class="k">⏱ Время</span><span>~${info?info.eta:'—'} мин</span></div>
@@ -1011,12 +1040,12 @@ function orderCardMini(o){
   </div>`;
 }
 function courierActiveOrderHTML(o){
-  const shop = DB.shops[DB.shopId];
+  const shop = orderShop(o);
   const addr = DB.addresses[o.customerId].find(a=>a.id===o.addressId);
   const cp = DB.couriers[o.courierId];
   let mapPts, actionHTML;
   if(o.status==='COURIER_ASSIGNED'){
-    mapPts = [{x:cp.x,y:cp.y,icon:TRANSPORT[cp.transport].icon},{x:shop.x,y:shop.y,icon:'🏪',tag:'Забрать'}];
+    mapPts=[{x:cp.x,y:cp.y,icon:TRANSPORT[cp.transport].icon},{x:shop.x,y:shop.y,icon:'🏪',tag:'Забрать'}];
     actionHTML = `<button class="btn btn-primary" onclick="courierAdvance(DB.orders['${o.id}'])">🗺 Поехать за заказом</button>`;
   } else if(o.status==='COURIER_GOING_TO_PICKUP'){
     const t=o.trackProgress; mapPts=[{x:cp.x+(shop.x-cp.x)*t,y:cp.y+(shop.y-cp.y)*t,icon:TRANSPORT[cp.transport].icon,pulse:true},{x:shop.x,y:shop.y,icon:'🏪',tag:'Забрать'}];
@@ -1035,7 +1064,6 @@ function courierActiveOrderHTML(o){
     actionHTML = `<div class="field"><label>Код от покупателя</label><input id="delcode" maxlength="4" placeholder="0000"></div>
       <button class="btn btn-primary" onclick="confirmDeliveryCode(DB.orders['${o.id}'], document.getElementById('delcode').value)">Подтвердить получение</button>`;
   } else { mapPts=[]; actionHTML=''; }
-
   return `<div class="stack">
     <div class="mapbox" style="height:170px;">${miniMapSVG(mapPts,{route: mapPts.length===2?[mapPts[0],mapPts[1]]:null})}</div>
     <div class="card">
@@ -1051,11 +1079,10 @@ function courierActiveOrderHTML(o){
 
 /* ---------------- CUSTOMER ---------------- */
 function customerHTML(){
-  const me = DB.users[DB.customerId];
+  const me = currentPersona();
   const myOrders = Object.values(DB.orders).filter(o=>o.customerId===me.id).sort((a,b)=>b.id.localeCompare(a.id));
   const active = myOrders.find(o=>!['DELIVERED','CANCELLED','EXPIRED'].includes(o.status));
   const tab = S.tabs.CUSTOMER;
-
   if(tab==='home'){
     return `<div class="scroll">
       <div class="eyebrow">С возвращением</div>
@@ -1063,13 +1090,10 @@ function customerHTML(){
       ${active? `<div class="eyebrow">Текущий заказ</div>${customerTrackCard(active)}` : `<div class="empty"><div class="em">🛍️</div>Активных заказов нет.<br><span class="faint" style="font-size:12.5px;">Продавец создаст заказ на ваш номер телефона.</span></div>`}
       <div class="divider"></div>
       <div class="eyebrow">История</div>
-      ${orderListHTML(myOrders.slice(0,4),'CUSTOMER')}
+      ${orderListHTML(myOrders.slice(0,4))}
     </div>`;
   }
-  if(tab==='track'){
-    return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Отслеживание</h2>
-      ${active? customerTrackFull(active) : `<div class="empty"><div class="em">📭</div>Нет активного заказа</div>`}</div>`;
-  }
+  if(tab==='track') return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Отслеживание</h2>${active? customerTrackFull(active) : `<div class="empty"><div class="em">📭</div>Нет активного заказа</div>`}</div>`;
   if(tab==='history'){
     const f = S.filters.customerHistory;
     const filtered = myOrders.filter(o=> f==='ALL' ? true : f==='TRANSIT' ? !['DELIVERED','CANCELLED','EXPIRED','CREATED'].includes(o.status) : f==='DONE'? o.status==='DELIVERED' : ['CANCELLED','EXPIRED'].includes(o.status));
@@ -1077,16 +1101,16 @@ function customerHTML(){
       <div class="segtabs" style="margin-bottom:14px;">
         ${[['ALL','Все'],['TRANSIT','В пути'],['DONE','Доставленные'],['CANCEL','Отменённые']].map(([k,l])=>`<div class="seg ${f===k?'active':''}" onclick="S.filters.customerHistory='${k}';render()">${l}</div>`).join('')}
       </div>
-      ${orderListHTML(filtered,'CUSTOMER')}</div>`;
+      ${orderListHTML(filtered)}</div>`;
   }
   if(tab==='addresses'){
-    const addrs = DB.addresses[me.id];
+    const addrs = DB.addresses[me.id] || [];
     return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Мои адреса</h2>
-      <div class="stack-sm">${addrs.map(a=>`<div class="card"><div style="font-weight:700;font-size:14px;">${a.label==='Дом'?'🏠':a.label==='Работа'?'💼':'📍'} ${esc(a.label)}</div><div class="faint" style="font-size:12.5px;margin-top:3px;">${esc(a.address)}</div>${a.comment?`<div class="faint" style="font-size:11.5px;">${esc(a.comment)}</div>`:''}</div>`).join('')}</div>
-      ${addrs.length<3? `<button class="btn btn-ghost" style="margin-top:12px;" onclick="toast('Демо: добавление нового адреса')">+ Добавить адрес</button>`:''}
+      ${addrs.length? `<div class="stack-sm">${addrs.map(a=>`<div class="card"><div style="font-weight:700;font-size:14px;">${a.label==='Дом'?'🏠':a.label==='Работа'?'💼':'📍'} ${esc(a.label)}</div><div class="faint" style="font-size:12.5px;margin-top:3px;">${esc(a.address)}</div>${a.comment?`<div class="faint" style="font-size:11.5px;">${esc(a.comment)}</div>`:''}</div>`).join('')}</div>` : `<div class="empty"><div class="em">📍</div>Адресов пока нет</div>`}
+      ${addrs.length<3? `<button class="btn btn-ghost" style="margin-top:12px;" onclick="openNewAddress()">+ Добавить адрес</button>`:''}
     </div>`;
   }
-  return meHTML(me,'CUSTOMER');
+  return meHTML(me);
 }
 function customerTrackCard(o){
   const meta = STATUS_META[o.status] || {label:'В пути', cls:'st-progress', icon:'🚚'};
@@ -1097,11 +1121,11 @@ function customerTrackCard(o){
   </div>`;
 }
 function customerTrackFull(o){
-  const shop = DB.shops[DB.shopId];
+  const shop = orderShop(o);
   const addr = DB.addresses[o.customerId].find(a=>a.id===o.addressId);
   const meta = STATUS_META[o.status] || STATUS_META.CREATED;
   let mapPts=[{x:shop.x,y:shop.y,icon:'🏪'},{x:addr.x,y:addr.y,icon:'🏠'}];
-  let banner = '';
+  let banner='';
   if(o.courierId){
     const c = DB.couriers[o.courierId];
     if(o.status==='COURIER_GOING_TO_PICKUP'||o.status==='COURIER_ASSIGNED'){
@@ -1131,6 +1155,7 @@ function customerTrackFull(o){
   </div>`;
 }
 function openRating(orderId){ S.currentOrderId=orderId; S.ratingDraft={stars:5,comment:''}; S.sheet='rating'; render(); }
+function openNewAddress(){ S.sheet='newAddress'; S.addrDraft={label:'Дом', address:'', comment:''}; render(); }
 
 /* ---------------- ADMIN ---------------- */
 function adminHTML(){
@@ -1156,7 +1181,7 @@ function adminHTML(){
   }
   if(tab==='couriers'){
     return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Курьеры</h2>
-      <div class="stack-sm">${couriers.map(c=>{
+      <div class="stack-sm">${couriers.length? couriers.map(c=>{
         const u = DB.users[c.id];
         return `<div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -1168,7 +1193,7 @@ function adminHTML(){
             ${c.status!=='BLOCKED'? `<button class="btn btn-danger btn-sm" onclick="adminSetCourierStatus('${c.id}','BLOCKED')">Заблокировать</button>`:`<button class="btn btn-outline btn-sm" onclick="adminSetCourierStatus('${c.id}','APPROVED')">Разблокировать</button>`}
           </div>
         </div>`;
-      }).join('')}</div>
+      }).join('') : `<div class="empty"><div class="em">🛵</div>Курьеров пока нет</div>`}</div>
     </div>`;
   }
   if(tab==='orders'){
@@ -1183,15 +1208,14 @@ function adminHTML(){
       </table>
     </div>`;
   }
-  // shops
-  const shop = DB.shops[DB.shopId];
+  const shops = Object.values(DB.shops);
   return `<div class="scroll"><h2 style="font-size:19px;margin:6px 0 16px;">Магазины</h2>
-    <div class="card"><div style="font-weight:700;">${esc(shop.name)}</div><div class="faint" style="font-size:12.5px;">${esc(shop.address)}</div><span class="chip st-done" style="margin-top:8px;">Активен</span></div>
+    <div class="stack-sm">${shops.length? shops.map(shop=>`<div class="card"><div style="font-weight:700;">${esc(shop.name)}</div><div class="faint" style="font-size:12.5px;">${esc(shop.address||'—')}</div><span class="chip st-done" style="margin-top:8px;">Активен</span></div>`).join('') : `<div class="empty">Пока нет магазинов</div>`}</div>
   </div>`;
 }
-function adminSetCourierStatus(id, status){ DB.couriers[id].status=status; DB.couriers[id].online = status==='APPROVED'; render(); }
+function adminSetCourierStatus(id, status){ DB.couriers[id].status=status; DB.couriers[id].online = status==='APPROVED'; persist(); render(); }
 
-/* ---------------- SHEETS (модалки) ---------------- */
+/* ---------------- SHEETS ---------------- */
 function sheetHTML(){
   if(!S.sheet) return '';
   if(S.sheet==='roleSwitcher') return sheetWrap(roleSwitcherHTML());
@@ -1200,122 +1224,23 @@ function sheetHTML(){
   if(S.sheet==='orderDetail') return sheetWrap(orderDetailHTML());
   if(S.sheet==='chat') return sheetWrap(chatHTML());
   if(S.sheet==='rating') return sheetWrap(ratingHTML());
-  if(S.sheet==='secretSettings') return sheetWrap(secretSettingsHTML());
+  if(S.sheet==='newAddress') return sheetWrap(newAddressHTML());
+  if(S.sheet==='pushLink') return sheetWrap(pushLinkSheetHTML());
   return '';
 }
-function sheetWrap(inner){
-  return `<div class="sheet-backdrop" onclick="if(event.target===this){S.sheet=null;render();}">
-    <div class="sheet"><div class="sheet-handle"></div>${inner}</div>
-  </div>`;
-}
+function sheetWrap(inner){ return `<div class="sheet-backdrop" onclick="if(event.target===this){S.sheet=null;render();}"><div class="sheet"><div class="sheet-handle"></div>${inner}</div></div>`; }
 function closeSheet(){ S.sheet=null; render(); }
-
-/* ---------------- секретная панель (5 тапов по лого) ----------------
-   Вход — настоящий Firebase Auth (email+пароль), а не строка в JS:
-   проверку делает сервер Firebase, а не браузер, поэтому подделать
-   её через "Просмотр кода страницы" нельзя.
-   Токены ботов НИКОГДА не пишутся в Realtime Database и не хранятся
-   на клиенте — форма отправляет их напрямую в защищённую Cloud
-   Function updateBotToken, которая кладёт их в Secret Manager.
-   Настройка первого админ-аккаунта — в SETUP.md. */
-let logoTapCount = 0, logoTapTimer = null;
-function tapLogo(){
-  logoTapCount++;
-  clearTimeout(logoTapTimer);
-  logoTapTimer = setTimeout(()=>{ logoTapCount = 0; }, 2500);
-  if(logoTapCount>=5){
-    logoTapCount = 0;
-    S.sheet = 'secretSettings';
-    render();
-  }
-}
-function secretSignIn(){
-  const email = document.getElementById('secretEmail').value.trim();
-  const pass = document.getElementById('secretPassInput').value;
-  auth.signInWithEmailAndPassword(email, pass)
-    .then(()=> render())
-    .catch(err=> toast('Не удалось войти: '+err.message));
-}
-function secretSignOut(){ auth.signOut().then(render); }
-async function saveSecretUsernames(){
-  const verifyUsername = document.getElementById('cfgVerifyBot').value.trim().replace(/^@/,'');
-  const mainUsername = document.getElementById('cfgMainBot').value.trim().replace(/^@/,'');
-  await rtdb.ref('config/public').update({
-    verifyBotUsername: verifyUsername || APP_CONFIG.verifyBotUsername,
-    mainBotUsername: mainUsername || APP_CONFIG.mainBotUsername,
-  });
-  toast('Username-ы сохранены');
-}
-async function saveSecretToken(botKey, inputId, statusId){
-  const token = document.getElementById(inputId).value.trim();
-  const statusEl = document.getElementById(statusId);
-  if(!token){ toast('Введите токен'); return; }
-  if(statusEl) statusEl.textContent = 'Сохраняю…';
-  try{
-    const updateBotToken = cloudFns.httpsCallable('updateBotToken');
-    await updateBotToken({ botKey, token });
-    document.getElementById(inputId).value = '';
-    if(statusEl) statusEl.textContent = '✅ Токен обновлён';
-    toast('Токен сохранён на сервере');
-  }catch(err){
-    if(statusEl) statusEl.textContent = '';
-    toast('Ошибка: '+err.message);
-  }
-}
-function secretSettingsHTML(){
-  const user = auth.currentUser;
-  if(!user){
-    return `<h3 style="margin:0 0 4px;font-size:17px;">Служебные настройки</h3>
-      <p class="faint" style="font-size:12.5px;margin:0 0 18px;">Вход для администратора</p>
-      <div class="field"><label>Email</label><input id="secretEmail" type="email" placeholder="admin@example.com"></div>
-      <div class="field"><label>Пароль</label><input id="secretPassInput" type="password" placeholder="Пароль" onkeydown="if(event.key==='Enter')secretSignIn()"></div>
-      <button class="btn btn-primary" onclick="secretSignIn()">Войти</button>`;
-  }
-  return `<h3 style="margin:0 0 4px;font-size:17px;">Служебные настройки</h3>
-    <p class="faint" style="font-size:12.5px;margin:0 0 16px;">Вы вошли как ${esc(user.email)}</p>
-
-    <div class="card stack-sm">
-      <div style="font-weight:700;font-size:14px;">Публичные имена ботов</div>
-      <div class="faint" style="font-size:12px;margin-bottom:6px;">Username-ы (без @) — не секрет, видны в диплинках сайта</div>
-      <div class="field" style="margin-bottom:8px;"><label>Бот-верификатор</label>
-        <input id="cfgVerifyBot" value="${esc(APP_CONFIG.verifyBotUsername)}" placeholder="DelivoVerifyBot"></div>
-      <div class="field" style="margin-bottom:0;"><label>Главный бот</label>
-        <input id="cfgMainBot" value="${esc(APP_CONFIG.mainBotUsername)}" placeholder="DelivoMainBot"></div>
-      <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="saveSecretUsernames()">Сохранить username-ы</button>
-    </div>
-
-    <div class="card stack-sm">
-      <div style="font-weight:700;font-size:14px;">🔒 Токен бота-верификатора</div>
-      <div class="faint" style="font-size:12px;">Уходит напрямую в Secret Manager, минуя базу данных</div>
-      <div class="field" style="margin:8px 0 0;"><input id="tokVerify" type="password" placeholder="123456789:AA..."></div>
-      <div class="faint" id="tokVerifyStatus" style="font-size:12px;height:14px;"></div>
-      <button class="btn btn-outline btn-sm" onclick="saveSecretToken('verify','tokVerify','tokVerifyStatus')">Сохранить токен</button>
-    </div>
-
-    <div class="card stack-sm">
-      <div style="font-weight:700;font-size:14px;">🔒 Токен главного бота</div>
-      <div class="faint" style="font-size:12px;">Уходит напрямую в Secret Manager, минуя базу данных</div>
-      <div class="field" style="margin:8px 0 0;"><input id="tokMain" type="password" placeholder="123456789:AA..."></div>
-      <div class="faint" id="tokMainStatus" style="font-size:12px;height:14px;"></div>
-      <button class="btn btn-outline btn-sm" onclick="saveSecretToken('main','tokMain','tokMainStatus')">Сохранить токен</button>
-    </div>
-
-    <button class="btn btn-ghost" style="margin-top:4px;" onclick="secretSignOut()">Выйти</button>
-    <button class="btn btn-ghost" style="margin-top:8px;" onclick="closeSheet()">Закрыть</button>`;
-}
-
 function roleSwitcherHTML(){
   const roles=[['SELLER','🏪','Продавец'],['COURIER','🛵','Курьер'],['CUSTOMER','🛍️','Покупатель'],['ADMIN','🛠️','Админ-панель']];
   return `<h3 style="margin:0 0 4px;font-size:17px;">Переключить роль</h3>
   <p class="faint" style="font-size:12.5px;margin:0 0 16px;">Демо-режим: посмотрите сценарий со стороны любого участника — все данные общие.</p>
-  <div class="stack-sm">
-    ${roles.map(([k,e,l])=>`<div class="role-card ${S.activeRole===k?'sel':''}" onclick="S.activeRole='${k}';S.sheet=null;render()">
+  <div class="stack-sm">${roles.map(([k,e,l])=>`<div class="role-card ${S.activeRole===k?'sel':''}" onclick="S.demoMode=true;S.currentUserId=null;S.activeRole='${k}';S.sheet=null;render()">
       <div class="emoji">${e}</div><div style="font-weight:700;">${l}</div>
-    </div>`).join('')}
-  </div>`;
+    </div>`).join('')}</div>`;
 }
 function notificationsHTML(){
-  const list = DB.notifications.filter(n=>n.recipientRole===S.activeRole).slice(0,20);
+  const persona = currentPersona();
+  const list = DB.notifications.filter(n=> S.activeRole==='ADMIN' ? true : (persona && n.recipientId===persona.id)).slice(0,20);
   list.forEach(n=>n.read=true);
   return `<h3 style="margin:0 0 14px;font-size:17px;">Уведомления</h3>
   <div class="stack-sm">${list.length? list.map(n=>`
@@ -1324,7 +1249,6 @@ function notificationsHTML(){
       <div class="faint" style="font-size:12.5px;margin-top:2px;">${esc(n.body)}</div>
     </div>`).join('') : `<div class="empty"><div class="em">🔕</div>Уведомлений нет</div>`}</div>`;
 }
-
 function newOrderHTML(){
   const no = S.newOrder;
   if(no.step===0){
@@ -1357,7 +1281,12 @@ function newOrderHTML(){
       </div>`;
   }
   if(no.step===2){
-    const addrs = DB.addresses[no.foundCustomerId];
+    const addrs = DB.addresses[no.foundCustomerId] || [];
+    if(!addrs.length){
+      return `<h3 style="margin:0 0 16px;font-size:17px;">Новый заказ · Адрес</h3>
+        <div class="empty"><div class="em">📭</div>У покупателя нет сохранённых адресов</div>
+        <button class="btn btn-outline" onclick="no.step=1;render()">Назад</button>`;
+    }
     return `<h3 style="margin:0 0 16px;font-size:17px;">Новый заказ · Адрес</h3>
       <div class="stack-sm">${addrs.map(a=>`
         <div class="role-card ${no.addressId===a.id?'sel':''}" onclick="no.addressId='${a.id}';render()">
@@ -1369,14 +1298,14 @@ function newOrderHTML(){
         <button class="btn btn-primary" ${!no.addressId?'disabled':''} onclick="no.step=3;render()">Далее</button>
       </div>`;
   }
-  // step 3 preview
-  const shop = DB.shops[DB.shopId];
+  const persona = currentPersona();
+  const shop = userShop(persona.id);
   const addr = DB.addresses[no.foundCustomerId].find(a=>a.id===no.addressId);
   const it = no.item;
   const fee = 80;
   return `<h3 style="margin:0 0 16px;font-size:17px;">Предпросмотр заказа</h3>
     <div class="card stack-sm">
-      <div class="eyebrow" style="margin:0;">🏪 Откуда</div><div style="font-weight:700;">${esc(shop.name)}</div><div class="faint" style="font-size:12px;">${esc(shop.address)}</div>
+      <div class="eyebrow" style="margin:0;">🏪 Откуда</div><div style="font-weight:700;">${esc(shop.name)}</div><div class="faint" style="font-size:12px;">${esc(shop.address||'')}</div>
       <div class="divider"></div>
       <div class="eyebrow" style="margin:0;">📦 Товар</div><div style="font-weight:700;">${esc(it.name||'—')}</div><div class="faint" style="font-size:12px;">Количество: ${it.qty}</div>
       <div class="divider"></div>
@@ -1391,9 +1320,8 @@ function newOrderHTML(){
 }
 function searchCustomer(){
   const phone = document.getElementById('no-phone').value.trim();
-  S.newOrder.phone = phone;
-  S.newOrder.searched = true;
-  const match = Object.values(DB.users).find(u=>u.role==='CUSTOMER' && u.phone.replace(/\D/g,'').slice(-6)===phone.replace(/\D/g,'').slice(-6));
+  S.newOrder.phone = phone; S.newOrder.searched = true;
+  const match = Object.values(DB.users).find(u=>u.role==='CUSTOMER' && u.phone && u.phone.replace(/\D/g,'').slice(-6)===phone.replace(/\D/g,'').slice(-6));
   S.newOrder.foundCustomerId = match? match.id : null;
   render();
 }
@@ -1407,12 +1335,11 @@ function saveItemStep(){
   };
   S.newOrder.step = 2; render();
 }
-
 function orderDetailHTML(){
   const o = DB.orders[S.currentOrderId];
   if(!o) return '';
   const meta = STATUS_META[o.status]||STATUS_META.CREATED;
-  const shop = DB.shops[DB.shopId];
+  const shop = orderShop(o);
   const addr = DB.addresses[o.customerId].find(a=>a.id===o.addressId);
   let actionArea = '';
   if(S.activeRole==='SELLER'){
@@ -1431,7 +1358,7 @@ function orderDetailHTML(){
   return `<h3 style="margin:0 0 4px;font-size:18px;">${o.publicId}</h3>
     <span class="chip ${meta.cls}" style="margin-bottom:14px;display:inline-flex;">${meta.icon} ${meta.label}</span>
     <div class="card stack-sm">
-      <div class="kv"><span class="k">🏪 Откуда</span><span>${esc(shop.name)}</span></div>
+      <div class="kv"><span class="k">🏪 Откуда</span><span>${shop?esc(shop.name):'—'}</span></div>
       <div class="kv"><span class="k">📦 Товар</span><span>${esc(o.items[0].name)} ×${o.items[0].qty}</span></div>
       <div class="kv"><span class="k">🏠 Куда</span><span>${esc(addr.label)}</span></div>
       ${o.courierId? `<div class="kv"><span class="k">🛵 Курьер</span><span>${esc(DB.users[o.courierId].name)}</span></div>`:''}
@@ -1441,7 +1368,6 @@ function orderDetailHTML(){
     ${o.courierId? `<button class="btn btn-ghost" style="margin-top:10px;" onclick="openChat('${o.id}')">💬 Чат по заказу</button>`:''}
   `;
 }
-
 function openChat(orderId){ S.currentOrderId=orderId; S.sheet='chat'; render(); }
 function chatHTML(){
   const o = DB.orders[S.currentOrderId];
@@ -1462,10 +1388,9 @@ function sendChat(orderId){
   if(!text) return;
   DB.messages[orderId] = DB.messages[orderId] || [];
   DB.messages[orderId].push({id:uid(), role:S.activeRole, text, time:nowStr()});
-  render();
+  persist(); render();
   setTimeout(()=>{ const el=document.getElementById('chatInput'); if(el) el.focus(); },0);
 }
-
 function ratingHTML(){
   const o = DB.orders[S.currentOrderId];
   const d = S.ratingDraft;
@@ -1477,17 +1402,48 @@ function ratingHTML(){
   <div class="field"><label>Комментарий</label><textarea id="rate-comment" placeholder="Необязательно">${esc(d.comment)}</textarea></div>
   <button class="btn btn-primary" onclick="S.ratingDraft.comment=document.getElementById('rate-comment').value; submitRating(DB.orders['${o.id}'])">Отправить оценку</button>`;
 }
+function newAddressHTML(){
+  const d = S.addrDraft;
+  return `<h3 style="margin:0 0 14px;font-size:17px;">Новый адрес</h3>
+    <div class="field"><label>Тип</label>
+      <div class="row">${['Дом','Работа','Другой'].map(l=>`<div class="role-card ${d.label===l?'sel':''}" style="padding:10px;justify-content:center;" onclick="S.addrDraft.label='${l}';render()">${l}</div>`).join('')}</div>
+    </div>
+    <div class="field"><label>Адрес</label><input id="addr-text" value="${esc(d.address)}" placeholder="Улица, дом, квартира"></div>
+    <div class="field"><label>Комментарий</label><input id="addr-comment" value="${esc(d.comment)}" placeholder="Домофон, этаж..."></div>
+    <button class="btn btn-primary" onclick="saveNewAddress()">Сохранить адрес</button>`;
+}
+function saveNewAddress(){
+  const persona = currentPersona();
+  const addr = document.getElementById('addr-text').value.trim();
+  if(!addr){ toast('Укажите адрес'); return; }
+  DB.addresses[persona.id] = DB.addresses[persona.id] || [];
+  if(DB.addresses[persona.id].length>=3){ toast('Максимум 3 адреса'); return; }
+  DB.addresses[persona.id].push({id:uid(), label:S.addrDraft.label, address:addr, x:rnd(30,290), y:rnd(20,190), comment:document.getElementById('addr-comment').value.trim(), isDefault: DB.addresses[persona.id].length===0});
+  persist(); S.sheet=null; toast('Адрес добавлен'); render();
+}
+function pushLinkSheetHTML(){
+  const token = S.pushConnectToken;
+  const pend = TG.pendingLink[token];
+  const linked = pend && pend.status==='linked';
+  const link = TG.pushBotUsername? `https://t.me/${TG.pushBotUsername}?start=push_${token}`:'#';
+  return `<h3 style="margin:0 0 14px;font-size:17px;">Push-уведомления</h3>
+    ${linked? `<div class="empty"><div class="em">✅</div>Подключено!</div><button class="btn btn-primary" onclick="closeSheet()">Готово</button>`
+    : `<p class="faint" style="font-size:13px;margin-bottom:14px;">Откройте бота и нажмите Start</p>
+       <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">Открыть бота</a>`}`;
+}
 
-/* ---------------- helpers/binding ---------------- */
+/* ---------------- helpers/binding/init ---------------- */
 function bind(){
   document.querySelectorAll('.otpd').forEach((inp,idx,arr)=>{
-    inp.addEventListener('input', e=>{
-      if(e.target.value && idx<arr.length-1) arr[idx+1].focus();
-    });
+    inp.addEventListener('input', e=>{ if(e.target.value && idx<arr.length-1) arr[idx+1].focus(); });
   });
 }
 
+initFirebase();
 render();
+bootData();
+tgInit();
 </script>
-</body>
-</html>
+
+
+</body></html>
