@@ -141,8 +141,8 @@
     <div class="display" style="font-size:28px;font-weight:700;margin-bottom:10px;">DELIVO</div>
     <div class="muted" style="margin-bottom:34px;font-size:15px;">Доставка становится проще.</div>
     <div class="stack">
-      <button class="btn btn-primary" onclick="goVerify('login')">Вход</button>
-      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.role=null;S.screen='roleSelect';render()">Регистрация</button>
+      <button class="btn btn-primary" onclick="S.onboard.loginError=null;S.screen='loginForm';render()">Вход</button>
+      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.regError=null;S.screen='regForm';render()">Регистрация</button>
     </div>
     <div style="margin-top:22px;"><a class="link" style="font-size:12.5px;cursor:pointer;color:var(--text-faint);font-weight:600;" onclick="S.onboard.mode='demo';S.onboard.role=null;S.screen='roleSelect';render()">Демо-режим без регистрации</a></div>
   </div></div></div></div>
@@ -428,7 +428,8 @@ async function bootData(){
 /* ---------------- состояние приложения ---------------- */
 const S = {
   screen:'splash',
-  onboard:{ role:null, mode:null, verifyToken:null, verifyError:null, loginNotFoundChatId:null, registerConflict:null },
+  onboard:{ role:null, mode:null, verifyToken:null, verifyError:null, registerConflict:null,
+    fio:'', login:'', phone:'', password:'', regError:null, loginError:null },
   currentUserId:null,
   demoMode:false,
   activeRole:null,
@@ -629,6 +630,8 @@ function screenHTML(){
   switch(S.screen){
     case 'splash': return splashHTML();
     case 'entry': return entryHTML();
+    case 'regForm': return regFormHTML();
+    case 'loginForm': return loginFormHTML();
     case 'roleSelect': return roleSelectHTML();
     case 'tgVerify': return tgVerifyHTML();
     case 'profile': return profileHTML();
@@ -648,11 +651,58 @@ function entryHTML(){
     <div class="display" style="font-size:28px;font-weight:700;margin-bottom:10px;">DELIVO</div>
     <div class="muted" style="margin-bottom:34px;font-size:15px;">Доставка становится проще.</div>
     <div class="stack">
-      <button class="btn btn-primary" onclick="goVerify('login')">Вход</button>
-      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.role=null;S.screen='roleSelect';render()">Регистрация</button>
+      <button class="btn btn-primary" onclick="S.onboard.loginError=null;S.screen='loginForm';render()">Вход</button>
+      <button class="btn btn-ghost" onclick="S.onboard.mode='register';S.onboard.regError=null;S.screen='regForm';render()">Регистрация</button>
     </div>
     <div style="margin-top:22px;"><a class="link" style="font-size:12.5px;cursor:pointer;color:var(--text-faint);font-weight:600;" onclick="S.onboard.mode='demo';S.onboard.role=null;S.screen='roleSelect';render()">Демо-режим без регистрации</a></div>
   </div>`;
+}
+function regFormHTML(){
+  const o = S.onboard;
+  return `<div class="scroll" style="padding-top:50px;">
+    <div class="eyebrow">Шаг 1 из 3</div>
+    <h2 style="margin:0 0 20px;font-size:22px;">Создайте аккаунт</h2>
+    <div class="field"><label>ФИО</label><input id="rf-fio" value="${esc(o.fio)}" placeholder="Имя Фамилия"></div>
+    <div class="field"><label>Логин</label><input id="rf-login" value="${esc(o.login)}" placeholder="username"></div>
+    <div class="field"><label>Номер телефона</label><input id="rf-phone" value="${esc(o.phone)}" placeholder="+992 900 00-00-00"></div>
+    <div class="field"><label>Пароль</label><input id="rf-password" type="password" value="${esc(o.password)}" placeholder="Придумайте пароль"></div>
+    ${o.regError? `<p style="color:var(--danger);font-size:13px;margin:-6px 0 12px;">${esc(o.regError)}</p>`:''}
+    <button class="btn btn-primary" onclick="submitRegForm()">Далее</button>
+    <div style="margin-top:14px;text-align:center;"><a class="link" style="font-size:13px;color:var(--text-faint);cursor:pointer;" onclick="S.screen='entry';render()">← Назад</a></div>
+  </div>`;
+}
+function submitRegForm(){
+  const fio = document.getElementById('rf-fio').value.trim();
+  const login = document.getElementById('rf-login').value.trim();
+  const phone = document.getElementById('rf-phone').value.trim();
+  const password = document.getElementById('rf-password').value;
+  if(!fio || !login || !password){ S.onboard.regError='Заполните ФИО, логин и пароль'; render(); return; }
+  if(Object.values(DB.users).some(u=>u.login && u.login.toLowerCase()===login.toLowerCase())){
+    S.onboard.regError='Этот логин уже занят'; render(); return;
+  }
+  S.onboard.fio=fio; S.onboard.login=login; S.onboard.phone=phone; S.onboard.password=password; S.onboard.regError=null;
+  goVerify('register');
+}
+function loginFormHTML(){
+  return `<div class="scroll" style="padding-top:60px;">
+    <div class="eyebrow">Вход</div>
+    <h2 style="margin:0 0 20px;font-size:22px;">Вход в аккаунт</h2>
+    <div class="field"><label>Логин</label><input id="lf-login" placeholder="username"></div>
+    <div class="field"><label>Пароль</label><input id="lf-password" type="password" placeholder="Пароль"></div>
+    ${S.onboard.loginError? `<p style="color:var(--danger);font-size:13px;margin:-6px 0 12px;">${esc(S.onboard.loginError)}</p>`:''}
+    <button class="btn btn-primary" onclick="submitLogin()">Войти</button>
+    <div style="margin-top:14px;text-align:center;"><a class="link" style="font-size:13px;color:var(--text-faint);cursor:pointer;" onclick="S.screen='entry';render()">← Назад</a></div>
+  </div>`;
+}
+function submitLogin(){
+  const login = document.getElementById('lf-login').value.trim();
+  const password = document.getElementById('lf-password').value;
+  const user = Object.values(DB.users).find(u=>u.login && u.login.toLowerCase()===login.toLowerCase());
+  if(!user || user.password!==password){ S.onboard.loginError='Неверный логин или пароль'; render(); return; }
+  if(!user.role){ S.currentUserId=user.id; S.demoMode=false; S.onboard.mode='register'; S.onboard.role=null; S.screen='roleSelect'; render(); return; }
+  S.currentUserId=user.id; S.activeRole=user.role; S.demoMode=false; S.screen='app';
+  toast(`С возвращением, ${(user.name||'').split(' ')[0]||''}!`);
+  render();
 }
 function roleSelectHTML(){
   const roles = [
@@ -661,8 +711,11 @@ function roleSelectHTML(){
     {k:'CUSTOMER', e:'🛍️', t:'Я покупатель', d:'Получаю свои заказы'},
   ];
   const mode = S.onboard.mode;
+  const postVerify = !!S.currentUserId;
+  const eyebrow = mode==='demo' ? 'Демо-режим' : (postVerify? 'Шаг 3 из 3' : 'Регистрация');
+  const contAction = postVerify ? 'finishRoleSelection()' : 'enterDemo()';
   return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">${mode==='demo'?'Демо-режим':'Регистрация'}</div>
+    <div class="eyebrow">${eyebrow}</div>
     <h2 style="margin:0 0 22px;font-size:22px;">Кто вы в DELIVO?</h2>
     <div class="stack">
       ${roles.map(r=>`
@@ -672,52 +725,50 @@ function roleSelectHTML(){
         </div>`).join('')}
     </div>
     <div style="margin-top:26px;">
-      <button class="btn btn-primary" ${!S.onboard.role?'disabled':''} onclick="${mode==='demo'?'enterDemo()':"goVerify('register')"}">Продолжить</button>
+      <button class="btn btn-primary" ${!S.onboard.role?'disabled':''} onclick="${contAction}">Продолжить</button>
     </div>
-    <div style="margin-top:14px;text-align:center;"><a class="link" style="font-size:13px;color:var(--text-faint);cursor:pointer;" onclick="S.screen='entry';render()">← Назад</a></div>
+    ${!postVerify? `<div style="margin-top:14px;text-align:center;"><a class="link" style="font-size:13px;color:var(--text-faint);cursor:pointer;" onclick="S.screen='entry';render()">← Назад</a></div>`:''}
   </div>`;
 }
 function enterDemo(){ S.demoMode=true; S.currentUserId=null; S.activeRole=S.onboard.role; S.screen='app'; render(); }
+function finishRoleSelection(){
+  const persona = DB.users[S.currentUserId];
+  persona.role = S.onboard.role;
+  persist();
+  S.screen='profile'; render();
+}
 
 function goVerify(mode){
   const token = randToken();
   TG.pendingAuth[token] = {status:'waiting'};
   S.onboard.mode = mode; S.onboard.verifyToken = token; S.onboard.verifyError = null;
-  S.onboard.loginNotFoundChatId=null; S.onboard.registerConflict=null;
+  S.onboard.registerConflict=null;
   S.screen='tgVerify'; render();
 }
 function tgVerifyHTML(){
-  const mode = S.onboard.mode;
-  if(mode==='login' && S.onboard.loginNotFoundChatId){
-    return `<div class="scroll" style="padding-top:80px;text-align:center;">
-      <div class="empty"><div class="em">🔎</div>Аккаунт с этим Telegram не найден.</div>
-      <button class="btn btn-primary" onclick="S.onboard.mode='register';S.onboard.loginNotFoundChatId=null;S.screen='roleSelect';render()">Зарегистрироваться</button>
-    </div>`;
-  }
-  if(mode==='register' && S.onboard.registerConflict){
+  if(S.onboard.registerConflict){
     const u = S.onboard.registerConflict;
     return `<div class="scroll" style="padding-top:80px;text-align:center;">
-      <div class="empty"><div class="em">✅</div>Этот Telegram уже зарегистрирован как ${roleLabel(u.role)}.</div>
+      <div class="empty"><div class="em">✅</div>Этот Telegram уже зарегистрирован${u.login? ` (логин ${esc(u.login)})`:''}.</div>
       <button class="btn btn-primary" onclick="loginAsExisting('${u.id}')">Войти</button>
     </div>`;
   }
   const token = S.onboard.verifyToken;
   const pending = TG.pendingAuth[token];
-  const title = mode==='login' ? 'Вход через Telegram' : 'Подтверждение через Telegram';
   if(!pending || pending.status==='waiting'){
     const link = TG.authBotUsername ? `https://t.me/${TG.authBotUsername}?start=verify_${token}` : '#';
     return `<div class="scroll" style="padding-top:60px;">
-      <div class="eyebrow">${mode==='login'?'Вход':'Шаг 2 из 3'}</div>
-      <h2 style="margin:0 0 10px;font-size:22px;">${title}</h2>
+      <div class="eyebrow">Шаг 2 из 3</div>
+      <h2 style="margin:0 0 10px;font-size:22px;">Подтверждение через Telegram</h2>
       <p class="muted" style="font-size:14px;margin-bottom:26px;">Нажмите кнопку — откроется Telegram-бот, который пришлёт код подтверждения.</p>
-      <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">Получить код в Telegram</a>
+      <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">Получить код</a>
       ${!TG.authBotUsername? `<p class="faint" style="font-size:12px;margin-top:10px;">Подключаемся к боту…</p>`:''}
       <p class="faint" style="font-size:12.5px;margin-top:16px;">После нажатия Start в боте здесь появится поле для ввода кода.</p>
-      <div style="margin-top:20px;"><a class="link" style="font-size:13px;cursor:pointer;" onclick="S.screen='${mode==='login'?'entry':'roleSelect'}';render()">← Назад</a></div>
+      <div style="margin-top:20px;"><a class="link" style="font-size:13px;cursor:pointer;" onclick="S.screen='regForm';render()">← Назад</a></div>
     </div>`;
   }
   return `<div class="scroll" style="padding-top:60px;">
-    <div class="eyebrow">${mode==='login'?'Вход':'Шаг 2 из 3'}</div>
+    <div class="eyebrow">Шаг 2 из 3</div>
     <h2 style="margin:0 0 10px;font-size:22px;">Введите код</h2>
     <p class="muted" style="font-size:14px;">Бот прислал 4-значный код в Telegram</p>
     <div class="otp-boxes"><input id="verifyCodeInput" maxlength="4" style="width:160px;letter-spacing:8px;text-align:center;font-size:24px;font-weight:800;" placeholder="0000"></div>
@@ -732,24 +783,20 @@ function submitVerifyCode(){
   if(!pending || entered!==pending.code){ S.onboard.verifyError='Неверный код'; render(); return; }
   const chatId = pending.chatId;
   const existing = Object.values(DB.users).find(u=>u.telegramChatId===chatId);
-  if(S.onboard.mode==='login'){
-    if(existing){
-      S.currentUserId=existing.id; S.activeRole=existing.role; S.demoMode=false; S.screen='app';
-      toast(`С возвращением, ${(existing.name||'').split(' ')[0]||''}!`);
-    } else { S.onboard.loginNotFoundChatId = chatId; }
-  } else {
-    if(existing){ S.onboard.registerConflict = existing; }
-    else {
-      const id = uid();
-      DB.users[id] = {id, publicId:pubId('USR'), role:S.onboard.role, name:'', phone:'', telegramChatId:chatId};
-      S.currentUserId = id; S.screen='profile'; persist();
-    }
+  if(existing){ S.onboard.registerConflict = existing; }
+  else {
+    const id = uid();
+    DB.users[id] = {id, publicId:pubId('USR'), role:null,
+      name:S.onboard.fio, login:S.onboard.login, phone:S.onboard.phone, password:S.onboard.password, telegramChatId:chatId};
+    S.currentUserId = id; S.onboard.role=null; S.screen='roleSelect'; persist();
   }
   render();
 }
 function loginAsExisting(userId){
   const u = DB.users[userId];
-  S.currentUserId=u.id; S.activeRole=u.role; S.demoMode=false; S.screen='app';
+  S.currentUserId=u.id; S.demoMode=false;
+  if(!u.role){ S.onboard.mode='register'; S.onboard.role=null; S.screen='roleSelect'; render(); return; }
+  S.activeRole=u.role; S.screen='app';
   toast(`С возвращением, ${(u.name||'').split(' ')[0]||''}!`); render();
 }
 
@@ -759,10 +806,8 @@ function profileHTML(){
   const role = persona.role;
   if(role==='SELLER'){
     return `<div class="scroll" style="padding-top:44px;">
-      <div class="eyebrow">Шаг 3 из 3</div>
+      <div class="eyebrow">Последний шаг</div>
       <h2 style="margin:0 0 20px;font-size:22px;">Профиль магазина</h2>
-      <div class="field"><label>Ваше имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
-      <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
       <div class="field"><label>Название магазина</label><input id="pf-shop" placeholder="Мой магазин"></div>
       <div class="field"><label>Адрес</label><input id="pf-addr" placeholder="Улица, дом"></div>
       <button class="btn btn-primary" onclick="saveProfile()">Сохранить магазин</button>
@@ -770,10 +815,8 @@ function profileHTML(){
   }
   if(role==='COURIER'){
     return `<div class="scroll" style="padding-top:44px;">
-      <div class="eyebrow">Шаг 3 из 3</div>
+      <div class="eyebrow">Последний шаг</div>
       <h2 style="margin:0 0 20px;font-size:22px;">Профиль курьера</h2>
-      <div class="field"><label>Имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
-      <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
       <div class="field"><label>Тип транспорта</label>
         <div class="row">
           ${Object.entries(TRANSPORT).map(([k,v])=>`
@@ -786,20 +829,14 @@ function profileHTML(){
     </div>`;
   }
   return `<div class="scroll" style="padding-top:44px;">
-    <div class="eyebrow">Шаг 3 из 3</div>
-    <h2 style="margin:0 0 20px;font-size:22px;">Профиль покупателя</h2>
-    <div class="field"><label>Имя</label><input id="pf-name" placeholder="Имя и фамилия"></div>
-    <div class="field"><label>Телефон</label><input id="pf-phone" placeholder="+992 900 00-00-00"></div>
+    <div class="eyebrow">Последний шаг</div>
+    <h2 style="margin:0 0 20px;font-size:22px;">Всё готово, ${esc((persona.name||'').split(' ')[0]||'')}!</h2>
     <p class="faint" style="font-size:12.5px;">Адреса доставки можно будет добавить сразу после регистрации, во вкладке «Адреса».</p>
-    <button class="btn btn-primary" onclick="saveProfile()">Сохранить</button>
+    <button class="btn btn-primary" onclick="saveProfile()">Продолжить</button>
   </div>`;
 }
 function saveProfile(){
   const persona = DB.users[S.currentUserId];
-  const name = document.getElementById('pf-name').value.trim();
-  const phone = document.getElementById('pf-phone') ? document.getElementById('pf-phone').value.trim() : '';
-  persona.name = name || 'Без имени';
-  persona.phone = phone;
   if(persona.role==='SELLER'){
     const shopId = uid();
     DB.shops[shopId] = {id:shopId, publicId:pubId('SHP'), ownerId:persona.id,
