@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>DELIVO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -160,7 +158,7 @@ th{color:var(--muted); font-weight:600; font-size:11.5px; text-transform:upperca
 <div class="app" id="app">
 
   <!-- ===================== LOADING ===================== -->
-  <div class="screen active" id="screen-loading">
+  <div class="screen" id="screen-loading">
     <div class="pad grow" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
       <div class="logo-mark">DELIV<span>O</span></div>
       <div class="spinner"></div>
@@ -168,7 +166,7 @@ th{color:var(--muted); font-weight:600; font-size:11.5px; text-transform:upperca
   </div>
 
   <!-- ===================== FIREBASE SETUP (first run only) ===================== -->
-  <div class="screen" id="screen-setup">
+  <div class="screen active" id="screen-setup">
     <div class="content pad stack">
       <div class="logo-mark center" style="margin-top:20px;">DELIV<span>O</span></div>
       <p class="muted center small">Настройка подключения (один раз для этого файла)</p>
@@ -314,7 +312,7 @@ th{color:var(--muted); font-weight:600; font-size:11.5px; text-transform:upperca
       <div class="field"><label>Имя</label><input id="cour-name" placeholder="Ваше имя"></div>
       <div class="field"><label>Город</label><input id="cour-city" placeholder="Например, Душанбе"></div>
       <div class="field"><label>Транспорт</label>
-        <select id="cour-vehicle"><option value="Пешком">Пешком</option><option value="Велосипед">Велосипед</option><option value="Мопед" selected>Мопед</option><option value="Автомобиль">Автомобиль</option></select>
+        <select id="cour-vehicle"><option value="Пешком">Пешком</option><option value="Велосипед">Велосипед</option><option value="Мопед" selected="">Мопед</option><option value="Автомобиль">Автомобиль</option></select>
       </div>
       <div class="field"><label>Telegram (username)</label><input id="cour-tg" placeholder="@username"></div>
       <button class="btn btn-outline" id="cour-locate">📍 Определить моё местоположение</button>
@@ -456,18 +454,34 @@ $('setup-save').addEventListener('click', ()=>{
     toast('Заполните хотя бы apiKey, databaseURL и projectId'); return;
   }
   localStorage.setItem('delivoFirebaseConfig', JSON.stringify(cfg));
-  initFirebase(cfg);
+  initFirebase(cfg, true);
 });
-function initFirebase(cfg){
+function initFirebase(cfg, showBakeInHint){
   try{
     firebase.initializeApp(cfg);
     db = firebase.database();
     afterFirebaseReady();
+    if(showBakeInHint) setTimeout(()=>showBakeInModal(cfg), 400);
   }catch(err){
     console.error(err);
     toast('Не удалось подключиться к Firebase');
     show('screen-setup');
   }
+}
+function showBakeInModal(cfg){
+  const snippet = 'const FIREBASE_CONFIG = '+JSON.stringify(cfg, null, 2)+';';
+  openModal(`
+    <h3>Ещё один шаг — один раз</h3>
+    <p class="small muted">Подключение сохранено в этом браузере, но чтобы другим пользователям НЕ показывался этот экран настройки, вставьте код ниже в сам файл вместо строки <code>const FIREBASE_CONFIG = null;</code> (в самом начале &lt;script&gt;) и пересохраните/переразместите файл там, откуда его открывают все.</p>
+    <textarea readonly style="min-height:160px;font-family:monospace;font-size:12px;">${snippet}</textarea>
+    <button class="btn btn-primary" id="bake-copy" style="margin-top:10px;">Скопировать</button>
+    <button class="btn btn-ghost" id="bake-close" style="margin-top:8px;">Понятно, продолжить</button>
+  `);
+  $('bake-copy').addEventListener('click', async ()=>{
+    try{ await navigator.clipboard.writeText(snippet); toast('Скопировано'); }
+    catch(e){ toast('Не удалось скопировать — выделите текст вручную'); }
+  });
+  $('bake-close').addEventListener('click', closeModal);
 }
 function afterFirebaseReady(){
   ensureAdminDefaults();
@@ -488,6 +502,11 @@ function ensureAdminDefaults(){
         db.ref('config/admin').set({login:'DELIVO@admin', passwordHash:hash, updatedAt:nowTs()});
       });
     }
+  }).catch(err=>{
+    console.error(err);
+    if(err.code==='PERMISSION_DENIED'){
+      toast('Firebase запрещает доступ. Откройте Realtime Database → Rules и разрешите read/write.', 6000);
+    }
   });
   db.ref('config/notifications').get().then(snap=>{
     if(!snap.exists()){
@@ -496,7 +515,7 @@ function ensureAdminDefaults(){
         orderDelivered:true, orderCancelled:true, orderChanged:true
       });
     }
-  });
+  }).catch(err=>console.error(err));
 }
 function goto(name){
   const map = {
@@ -516,18 +535,25 @@ document.querySelectorAll('[data-logintab]').forEach(b=>b.addEventListener('clic
 $('login-user-btn').addEventListener('click', async ()=>{
   const phone = '+992'+$('login-phone').value.replace(/\s/g,'');
   if($('login-phone').value.replace(/\s/g,'').length<9){ toast('Введите корректный номер'); return; }
-  const snap = await db.ref('users').orderByChild('phone').equalTo(phone).get();
-  if(!snap.exists()){ toast('Пользователь с таким номером не найден. Зарегистрируйтесь.'); return; }
-  let found=null, foundId=null;
-  snap.forEach(c=>{ found=c.val(); foundId=c.key; });
-  regFlow.phone = phone; regFlow.loginMode = true; regFlow.loginUid = foundId; regFlow.loginRole = found.role;
-  show('screen-phone'); $('reg-phone').value = $('login-phone').value; $('reg-phone').parentElement.parentElement.style.display='none';
-  $('get-code-btn').click();
+  try{
+    const snap = await db.ref('users').orderByChild('phone').equalTo(phone).get();
+    if(!snap.exists()){ toast('Пользователь с таким номером не найден. Зарегистрируйтесь.'); return; }
+    let found=null, foundId=null;
+    snap.forEach(c=>{ found=c.val(); foundId=c.key; });
+    regFlow.phone = phone; regFlow.loginMode = true; regFlow.loginUid = foundId; regFlow.loginRole = found.role;
+    show('screen-phone'); $('reg-phone').value = $('login-phone').value; $('reg-phone').parentElement.parentElement.style.display='none';
+    $('get-code-btn').click();
+  }catch(err){
+    console.error(err);
+    if(err.code==='PERMISSION_DENIED') toast('Firebase запрещает доступ к базе. Проверьте Rules в консоли Firebase.', 5000);
+    else toast('Ошибка: '+(err.message||err));
+  }
 });
 
 $('admin-login-btn').addEventListener('click', async ()=>{
   const login = $('admin-login').value.trim();
   const pass = $('admin-pass').value;
+  try{
   const attemptsSnap = await db.ref('config/adminAttempts').get();
   const at = attemptsSnap.val() || {count:0, lockUntil:0};
   if(at.lockUntil && at.lockUntil > nowTs()){
@@ -547,6 +573,11 @@ $('admin-login-btn').addEventListener('click', async ()=>{
     await db.ref('config/adminAttempts').set({count, lockUntil});
     await auditLog('ADMIN_LOGIN_FAILED','admin',login,{attempt:count});
     toast(count>=5 ? 'Аккаунт временно заблокирован из-за неверных попыток.' : 'Неверный логин или пароль');
+  }
+  }catch(err){
+    console.error(err);
+    if(err.code==='PERMISSION_DENIED') toast('Firebase запрещает доступ к базе. Проверьте Rules в консоли Firebase.', 5000);
+    else toast('Ошибка: '+(err.message||err));
   }
 });
 async function auditLog(action, objectType, objectId, metadata){
@@ -569,19 +600,32 @@ $('get-code-btn').addEventListener('click', async ()=>{
   if(digits.length<9){ toast('Введите номер в формате +992 XX XXX XX XX'); return; }
   const phone = regFlow.phone || ('+992'+digits);
   regFlow.phone = phone;
-  if(!regFlow.loginMode){
-    const exists = await db.ref('users').orderByChild('phone').equalTo(phone).get();
-    if(exists.exists()){ toast('Этот номер уже зарегистрирован. Используйте «Войти».'); return; }
+  $('get-code-btn').setAttribute('disabled','1');
+  $('get-code-btn').textContent = 'Проверяем...';
+  try{
+    if(!regFlow.loginMode){
+      const exists = await db.ref('users').orderByChild('phone').equalTo(phone).get();
+      if(exists.exists()){ toast('Этот номер уже зарегистрирован. Используйте «Войти».'); return; }
+    }
+    const bot = await getBotByPurpose('Верификация') || await getBotByPurpose('Основной');
+    if(!bot){ toast('Бот верификации не настроен администратором. Зайдите в DELIVO ADMIN → Telegram и сохраните бота «Верификация».', 5000); return; }
+    if(!bot.username || !bot.token){ toast('У бота верификации не заполнен username или токен.'); return; }
+    regFlow.code = pad6();
+    regFlow.expiresAt = nowTs()+5*60*1000;
+    regFlow.attempts = 0;
+    $('tg-link-wrap').style.display='flex';
+    $('tg-open-link').href = 'https://t.me/'+bot.username.replace('@','')+'?start='+regFlow.code;
+    startTelegramPoll(bot.token, regFlow.code);
+    $('get-code-btn').style.display='none';
+  }catch(err){
+    console.error(err);
+    if(err.code==='PERMISSION_DENIED') toast('Firebase запрещает доступ к базе. Проверьте Rules в консоли Firebase.', 5000);
+    else toast('Ошибка: '+(err.message||err));
+    $('get-code-btn').style.display='block';
+  }finally{
+    $('get-code-btn').removeAttribute('disabled');
+    $('get-code-btn').textContent = 'Получить код';
   }
-  const bot = await getBotByPurpose('Верификация') || await getBotByPurpose('Основной');
-  if(!bot){ toast('Бот верификации не настроен администратором.'); return; }
-  regFlow.code = pad6();
-  regFlow.expiresAt = nowTs()+5*60*1000;
-  regFlow.attempts = 0;
-  $('get-code-btn').style.display='none';
-  $('tg-link-wrap').style.display='flex';
-  $('tg-open-link').href = 'https://t.me/'+bot.username.replace('@','')+'?start='+regFlow.code;
-  startTelegramPoll(bot.token, regFlow.code);
 });
 $('resend-code').addEventListener('click', (e)=>{ e.preventDefault(); $('get-code-btn').style.display='block'; $('get-code-btn').click(); });
 
@@ -1505,22 +1549,26 @@ async function adminOrders(){
 }
 async function adminTg(){
   unsubAll();
-  const snap = await db.ref('config/telegramBots').get();
-  const bots=[]; snap.forEach(c=>bots.push({key:c.key,...c.val()}));
+  const mainBot = (await db.ref('config/telegramBots/main').get()).val();
+  const verifyBot = (await db.ref('config/telegramBots/verify').get()).val();
   const notif = (await db.ref('config/notifications').get()).val() || {};
+  const slotCard = (key, title, hint, bot) => `
+    <div class="card stack">
+      <div class="spread"><b>${title}</b>${bot?`<span class="badge ${bot.status==='Активен'?'badge-lime':'badge-danger'}">${bot.status}</span>`:'<span class="badge badge-muted">Не настроен</span>'}</div>
+      <p class="small muted" style="margin:0;">${hint}</p>
+      <div class="field"><label>Название</label><input id="tg-${key}-name" value="${bot?.name||''}" placeholder="DELIVO"></div>
+      <div class="field"><label>Username бота</label><input id="tg-${key}-username" value="${bot?.username||''}" placeholder="@delivo_bot"></div>
+      <div class="field"><label>Токен</label><input id="tg-${key}-token" value="${bot?.token||''}" placeholder="123456:ABC-..."></div>
+      <div class="row">
+        <button class="btn btn-primary btn-sm grow" data-tg-save="${key}">Сохранить</button>
+        <button class="btn btn-outline btn-sm grow" data-tg-check="${key}">Проверить</button>
+        ${bot?`<button class="btn btn-outline btn-sm grow" data-tg-toggle="${key}" data-cur="${bot.status}">${bot.status==='Активен'?'Отключить':'Включить'}</button>`:''}
+      </div>
+    </div>`;
   $('admin-tab-body').innerHTML = `<div class="pad stack">
     <h2>Telegram-боты</h2>
-    ${bots.map(b=>`<div class="card stack">
-      <div class="spread"><b>${b.name}</b><span class="badge ${b.status==='Активен'?'badge-lime':'badge-danger'}">${b.status}</span></div>
-      <div class="small muted">${b.username} · назначение: ${b.purpose}</div>
-      <div class="small muted">Токен: ••••••${(b.token||'').slice(-6)}</div>
-      <div class="row">
-        <button class="btn btn-sm btn-outline grow" data-tg-check="${b.key}">Проверить</button>
-        <button class="btn btn-sm btn-outline grow" data-tg-toggle="${b.key}" data-cur="${b.status}">${b.status==='Активен'?'Отключить':'Включить'}</button>
-        <button class="btn btn-sm btn-danger grow" data-tg-del="${b.key}">Удалить</button>
-      </div>
-    </div>`).join('')}
-    <button class="btn btn-primary" id="tg-add">+ Добавить бота</button>
+    ${slotCard('main','Основной — push-уведомления','Шлёт покупателям, продавцам и курьерам все статусы заказа (новый заказ, курьер найден, доставлено и т.д.)', mainBot)}
+    ${slotCard('verify','Верификация','Используется только при регистрации и входе — присылает 6-значный код подтверждения номера через Telegram', verifyBot)}
     <div class="divider"></div>
     <h3>Уведомления</h3>
     <div class="card stack" id="notif-toggles">
@@ -1532,10 +1580,15 @@ async function adminTg(){
   document.querySelectorAll('[data-notif]').forEach(inp=>inp.addEventListener('change', ()=>{
     db.ref('config/notifications/'+inp.dataset.notif).set(inp.checked);
   }));
-  document.querySelectorAll('[data-tg-del]').forEach(b=>b.addEventListener('click', async ()=>{
-    if(!confirm('Удалить бота?')) return;
-    await db.ref('config/telegramBots/'+b.dataset.tgDel).remove();
-    await auditLog('BOT_DELETED','bot',b.dataset.tgDel,{});
+  document.querySelectorAll('[data-tg-save]').forEach(b=>b.addEventListener('click', async ()=>{
+    const key = b.dataset.tgSave;
+    const name = $(`tg-${key}-name`).value.trim(), username = $(`tg-${key}-username`).value.trim(), token = $(`tg-${key}-token`).value.trim();
+    if(!name||!username||!token){ toast('Заполните все поля'); return; }
+    const purpose = key==='main' ? 'Основной' : 'Верификация';
+    const existing = (await db.ref('config/telegramBots/'+key).get()).val();
+    await db.ref('config/telegramBots/'+key).set({name, username, token, purpose, status: existing?.status || 'Активен', createdAt: existing?.createdAt || nowTs()});
+    await auditLog('BOT_SAVED','bot',key,{name});
+    toast('Бот сохранён');
     adminTg();
   }));
   document.querySelectorAll('[data-tg-toggle]').forEach(b=>b.addEventListener('click', async ()=>{
@@ -1545,32 +1598,14 @@ async function adminTg(){
     adminTg();
   }));
   document.querySelectorAll('[data-tg-check]').forEach(b=>b.addEventListener('click', async ()=>{
-    const bot = bots.find(x=>x.key===b.dataset.tgCheck);
+    const token = $(`tg-${b.dataset.tgCheck}-token`).value.trim();
+    if(!token){ toast('Сначала укажите токен'); return; }
     try{
-      const res = await fetch(`https://api.telegram.org/bot${bot.token}/getMe`);
+      const res = await fetch(`https://api.telegram.org/bot${token}/getMe`);
       const d = await res.json();
       toast(d.ok ? `Бот @${d.result.username} на связи` : 'Токен недействителен');
     }catch(e){ toast('Ошибка проверки токена'); }
   }));
-  $('tg-add').addEventListener('click', ()=>{
-    openModal(`<h3>Новый Telegram-бот</h3><div class="stack">
-      <div class="field"><label>Название</label><input id="tgb-name" placeholder="DELIVO Verify"></div>
-      <div class="field"><label>Username бота</label><input id="tgb-username" placeholder="@delivo_verify_bot"></div>
-      <div class="field"><label>Токен</label><input id="tgb-token" placeholder="123456:ABC-..."></div>
-      <div class="field"><label>Назначение</label>
-        <select id="tgb-purpose"><option>Верификация</option><option>Основной</option><option>Курьеры</option><option>Покупатели</option><option>Продавцы</option></select>
-      </div>
-      <button class="btn btn-primary" id="tgb-save">Сохранить бота</button>
-    </div>`);
-    $('tgb-save').addEventListener('click', async ()=>{
-      const name=$('tgb-name').value.trim(), username=$('tgb-username').value.trim(), token=$('tgb-token').value.trim();
-      if(!name||!username||!token){ toast('Заполните все поля'); return; }
-      const id = uid();
-      await db.ref('config/telegramBots/'+id).set({name, username, token, purpose:$('tgb-purpose').value, status:'Активен', createdAt:nowTs()});
-      await auditLog('BOT_ADDED','bot',id,{name});
-      closeModal(); adminTg();
-    });
-  });
 }
 async function adminMap(){
   unsubAll();
@@ -1644,5 +1679,6 @@ async function adminSecurity(){
   });
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
