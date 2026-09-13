@@ -400,8 +400,15 @@ th{color:var(--muted); font-weight:600; font-size:11.5px; text-transform:upperca
 
 // Впишите ваш конфиг Firebase сюда один раз — тогда экран настройки
 // не будет показан ни одному пользователю, открывающему этот файл.
-const FIREBASE_CONFIG = null; // например: {apiKey:"...", databaseURL:"...", projectId:"..."}
-
+const FIREBASE_CONFIG = {
+  "apiKey": "AIzaSyC8YPE9oNafw8B7ucPEb_eOJzunfqFTOiY",
+  "authDomain": "delivo-3afab.firebaseapp.com",
+  "databaseURL": "https://delivo-3afab-default-rtdb.firebaseio.com",
+  "projectId": "delivo-3afab",
+  "storageBucket": "delivo-3afab.firebasestorage.app",
+  "messagingSenderId": "974288689446",
+  "appId": "1:974288689446:web:aceda7f0d6a8627abe49e7"
+};
 let db = null;
 const S = { user:null, role:null, unsub:[], watchId:null, pollTimer:null, currentOrderId:null, adminTimer:null };
 
